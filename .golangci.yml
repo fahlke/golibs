@@ -1,0 +1,23 @@
+# all configuration options can be found here: https://github.com/golangci/golangci-lint/blob/master/.golangci.example.yml
+
+# options for analysis running
+run:
+  timeout: 1m
+  skip-dirs:
+    - vendor
+
+# output configuration options
+output:
+  format: line-number
+  print-issued-lines: false
+
+# list of enabled or disabled linters
+linters:
+  disable-all: true
+  presets:
+     - bugs        # bodyclose, errcheck, gosec, govet, scopelint, staticcheck, typecheck
+     - complexity  # gocognit, gocyclo, nakedret
+     - format      # gofmt, goimports
+     - performance # bodyclose, maligned, prealloc
+     - style       # depguard, dogsled, dupl, funlen, gochecknoglobals, gochecknoinits, goconst, gocritic, godox, golint, gomnd, gosimple, interfacer, lll, misspell, stylecheck, unconvert, whitespace, wsl
+     - unused      # deadcode, ineffassign, structcheck, unparam, unused, varcheck
