@@ -3,36 +3,26 @@ version: 2
 jobs:
   build:
     docker:
-      - image: golangci/golangci-lint:v1.23.3-alpine
+      - image: golangci/golangci-lint:v1.23.3
 
     steps:
       - checkout
 
-      # lint
+      # lint with the configuration from .golangci.yml
       - run: |
-          golangci-lint run \
-            --out-format=line-number \
-            --print-issued-lines=false \
-            --color=never \
-            --disable-all \
-            --presets=bugs \
-            --presets=complexity \
-            --presets=performance \
-            --presets=style \
-            --presets=unused \
-            --presets=format \
-            ./...
+          golangci-lint run ./...
 
       # build
+      #TODO
 
       # testing and code coverage
       - run: |
-          touch coverage.txt
+          echo "" > coverage.txt
           for PACKAGE in $(go list ./... | grep -v vendor); do
             go test -race -coverprofile=profile.out -covermode=atomic ${PACKAGE}
             if [ -f profile.out ]; then
               cat profile.out >> coverage.txt
-              rm profile.out
+              rm -f profile.out
             fi
           done
       - run: bash <(curl -s https://codecov.io/bash)
