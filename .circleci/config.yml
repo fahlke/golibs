@@ -1,0 +1,38 @@
+---
+version: 2
+jobs:
+  build:
+    docker:
+      - image: golangci/golangci-lint:v1.23.3-alpine
+
+    steps:
+      - checkout
+
+      # lint
+      - run: |
+          golangci-lint run \
+            --out-format=line-number \
+            --print-issued-lines=false \
+            --color=never \
+            --disable-all \
+            --presets=bugs \
+            --presets=complexity \
+            --presets=performance \
+            --presets=style \
+            --presets=unused \
+            --presets=format \
+            ./...
+
+      # build
+
+      # testing and code coverage
+      - run: |
+          touch coverage.txt
+          for PACKAGE in $(go list ./... | grep -v vendor); do
+            go test -race -coverprofile=profile.out -covermode=atomic ${PACKAGE}
+            if [ -f profile.out ]; then
+              cat profile.out >> coverage.txt
+              rm profile.out
+            fi
+          done
+      - run: bash <(curl -s https://codecov.io/bash)
