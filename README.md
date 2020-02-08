@@ -58,9 +58,9 @@ The lists below are in no particular order and the various implementations are n
 
 ### Utilities
 
-| Function                                     | Package                  | Implemented |
-|:---------------------------------------------|:-------------------------|:-----------:|
-| Max                                          | [util](util)             |           - |
+| Function                                     | Package                    | Implemented |
+|:---------------------------------------------|:---------------------------|:-----------:|
+| Max                                          | [util/max.go](util/max.go) |           ✓ |
 
 [golang]: https://golang.org/ref/spec
 [gopher-logo]: assets/gopher-mini.png "Gopher logo"
