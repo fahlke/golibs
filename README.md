@@ -28,7 +28,7 @@ The lists below are in no particular order and the various implementations are n
 
 ### Sorting algorithms
 
-| Kind (Wikipedia link)                        | Package                  | Implemented |
+| Name (Wikipedia link)                        | Package                  | Implemented |
 |:---------------------------------------------|:-------------------------|:-----------:|
 | [Quicksort][quick-sort]                      | [sort](sort)             |           - |
 | [Bubble sort][bubble-sort]                   | [sort](sort)             |           - |
@@ -42,7 +42,7 @@ The lists below are in no particular order and the various implementations are n
 
 ### Hashing algorithms
 
-| Kind (Wikipedia link)                        | Package                  | Implemented |
+| Name (Wikipedia link)                        | Package                  | Implemented |
 |:---------------------------------------------|:-------------------------|:-----------:|
 | [SHA-256][sha-256]                           | [hash](hash)             |           - |
 | [MD5][md5]                                   | [hash](hash)             |           - |
@@ -51,7 +51,7 @@ The lists below are in no particular order and the various implementations are n
 
 ### String metrics
 
-| Kind (Wikipedia link)                        | Package                  | Implemented |
+| Name (Wikipedia link)                        | Package                  | Implemented |
 |:---------------------------------------------|:-------------------------|:-----------:|
 | [Levenshtein distance][levenshtein]          | [string](string)         |           - |
 | [Hamming distance][hamming]                  | [string](string)         |           - |
