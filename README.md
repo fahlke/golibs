@@ -60,6 +60,7 @@ The lists below are in no particular order and the various implementations are n
 
 | Function                                     | Package                    | Implemented |
 |:---------------------------------------------|:---------------------------|:-----------:|
+| Mix                                          | [util/mix.go](util/mix.go) |           ✓ |
 | Max                                          | [util/max.go](util/max.go) |           ✓ |
 
 [golang]: https://golang.org/ref/spec
