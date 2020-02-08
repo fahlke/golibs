@@ -1,40 +1,36 @@
-package maximumtriplet
+package util
 
 import (
-	"reflect"
+	"math"
 	"testing"
 )
 
-func TestMaximumTriplet(t *testing.T) {
+func TestMax(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name     string
-		values   []int
-		expected int
+		name string
+		a    int
+		n    []int
+		want int
 	}{
-		{"value a is max", []int{70, -10, 30}, 70},
-		{"value a is max", []int{3, 2, 1}, 3},
-		{"value a is max", []int{-10, -20, -30}, -10},
-		{"value b is max", []int{-1, 0, -10}, 0},
-		{"value b is max", []int{-70, -10, -30}, -10},
-		{"value b is max", []int{7, 64, 43}, 64},
-		{"value c is max", []int{1, 2, 3}, 3},
-		{"value c is max", []int{1, 2, 3}, 3},
-		{"value c is max", []int{-100, 0, 100}, 100},
-		{"value c is max", []int{0, 0, 0}, 0},
-		{"value c is max", []int{-100, -100, -100}, -100},
+		{"one zero", 0, nil, 0},
+		{"one value", 30, nil, 30},
+		{"two zeros", 0, []int{0}, 0},
+		{"two values", 30, []int{40}, 40},
+		{"three values (all positive)", 30, []int{40, 50}, 50},
+		{"three values (all negative)", -70, []int{-10, -30}, -10},
+		{"three values (all zeros)", 0, []int{0, 0}, 0},
+		{"three values (positive and negative)", -100, []int{0, 100}, 100},
+		{"edge case (max int64)", math.MaxInt64, []int{10, 20}, math.MaxInt64},
+		{"edge case (min int64)", math.MinInt64, nil, math.MinInt64},
 	}
-
 	for _, tt := range tests {
 		tt := tt
-
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-
-			got := MaximumTriplet(&tt.values[0], &tt.values[1], &tt.values[2])
-			if !reflect.DeepEqual(got, tt.expected) {
-				t.Errorf("got `%d`, expected `%d`", got, tt.expected)
+			if got := Max(tt.a, tt.n...); got != tt.want {
+				t.Errorf("Max() = %v, want %v", got, tt.want)
 			}
 		})
 	}
