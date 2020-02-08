@@ -1,0 +1,4 @@
+# to validate this file run: curl --data-binary @codecov.yml https://codecov.io/validate
+
+comment:
+  require_changes: true
