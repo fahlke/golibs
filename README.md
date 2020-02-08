@@ -56,6 +56,12 @@ The lists below are in no particular order and the various implementations are n
 | [Levenshtein distance][levenshtein]          | [string](string)         |           - |
 | [Hamming distance][hamming]                  | [string](string)         |           - |
 
+### Utilities
+
+| Function                                     | Package                  | Implemented |
+|:---------------------------------------------|:-------------------------|:-----------:|
+| Max                                          | [util](util)             |           - |
+
 [golang]: https://golang.org/ref/spec
 [gopher-logo]: assets/gopher-mini.png "Gopher logo"
 [gopherizeme]: https://gopherize.me/gopher/692fbfd019724e297a7b0761bd3e9697ef8e6bee
