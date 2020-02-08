@@ -1,7 +1,7 @@
 # golibs
 
-[![CircleCI](https://circleci.com/gh/fahlke/golibs/tree/master.svg?style=svg)](https://circleci.com/gh/fahlke/golibs/tree/master)
-[![Codecov](https://codecov.io/gh/fahlke/golibs/branch/master/graph/badge.svg)](https://codecov.io/gh/fahlke/golibs)
+[![CircleCI](https://img.shields.io/circleci/build/github/fahlke/golibs?label=circleci)](https://circleci.com/gh/fahlke/golibs/tree/master)
+[![Codecov](https://img.shields.io/codecov/c/github/fahlke/golibs?label=codecov)](https://codecov.io/gh/fahlke/golibs)
 [![GoDoc](https://godoc.org/github.com/fahlke/golibs?status.svg)](https://godoc.org/github.com/fahlke/golibs)
 [![Go Report Card](https://goreportcard.com/badge/github.com/fahlke/golibs)](https://goreportcard.com/report/github.com/fahlke/golibs)
 
