@@ -3,7 +3,8 @@ package pearson
 import "hash"
 
 const (
-	size = 8
+	size      = 8
+	blockSize = 1
 )
 
 type digest uint64
@@ -20,7 +21,7 @@ func (d *digest) Size() int {
 }
 
 func (d *digest) BlockSize() int {
-	panic("implement me")
+	return blockSize
 }
 
 func (d *digest) Reset() {
