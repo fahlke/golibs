@@ -2,14 +2,21 @@ package pearson
 
 import "hash"
 
-type digest uint32
+const (
+	size = 8
+)
 
-func New() hash.Hash32 {
-	panic("implement me")
+type digest uint64
+
+func New() hash.Hash64 {
+	d := digest(0)
+	d.Reset()
+
+	return &d
 }
 
 func (d *digest) Size() int {
-	panic("implement me")
+	return size
 }
 
 func (d *digest) BlockSize() int {
@@ -17,14 +24,14 @@ func (d *digest) BlockSize() int {
 }
 
 func (d *digest) Reset() {
-	panic("implement me")
+	*d = digest(0)
 }
 
 func (d *digest) Sum(b []byte) []byte {
 	panic("implement me")
 }
 
-func (d *digest) Sum32() uint32 {
+func (d *digest) Sum64() uint64 {
 	panic("implement me")
 }
 
