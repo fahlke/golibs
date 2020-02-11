@@ -12,8 +12,11 @@ jobs:
       - run: |
           golangci-lint run ./...
 
-      # build
-      #TODO
+      # vendor and build
+      - run: go mod vendor
+      - run: go vet   -v       $(go list ./... | grep -v /vendor/)
+      - run: go build -v       $(go list ./... | grep -v /vendor/)
+      - run: go test  -v -race $(go list ./... | grep -v /vendor/)
 
       # testing and code coverage
       - run: |
