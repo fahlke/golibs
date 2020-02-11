@@ -13,6 +13,6 @@ func TestSet(t *testing.T) {
 
 	m := hashmap.HashMap{}
 
-	err := m.Set("Hello", "World!")
+	err := m.Set("foo", "bar")
 	assert.NoError(t, err)
 }
