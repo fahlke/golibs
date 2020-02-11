@@ -1,11 +1,7 @@
 package hashmap
 
 import (
-	"bytes"
-	"encoding/binary"
 	"errors"
-	"fmt"
-	"hash"
 	"sync"
 
 	"github.com/fahlke/golibs/hash/pearson"
@@ -15,13 +11,13 @@ import (
 const buckets = 1 << 16
 
 var (
-	ErrDigestFailed = errors.New("failed to get digest")
+	// ErrNotFound means that the requested item does not exist
+	ErrNotFound = errors.New("item not found")
 )
 
 type HashMap struct {
 	mutex sync.RWMutex
 	data  [buckets][]item
-	hash  hash.Hash
 }
 
 type item struct {
@@ -29,32 +25,40 @@ type item struct {
 	value interface{}
 }
 
-func (h *HashMap) Set(key string, value interface{}) error {
+func (h *HashMap) Set(key string, value interface{}) {
 	h.mutex.Lock()
 	defer h.mutex.Unlock()
 
-	// Create a new instance if not already initialized
-	if h.hash == nil {
-		h.hash = pearson.New()
+	digest := pearson.Sum16(key)
+
+	// if key is already in the bucket, update and exit
+	for i := range h.data[digest] {
+		if h.data[digest][i].key == key {
+			h.data[digest][i].value = value
+
+			return
+		}
 	}
 
-	// Generate hash value for the key
-	// It never returns an error
-	h.hash.Write([]byte(key)) //nolint:errcheck
-	defer h.hash.Reset()
-
-	var digest uint16
-
-	buf := bytes.NewBuffer(h.hash.Sum(nil))
-	if err := binary.Read(buf, binary.BigEndian, &digest); err != nil {
-		return fmt.Errorf("%s (%s)", ErrDigestFailed, err)
-	}
-
-	// Add the new k/v pair to the hash table
+	// Add a new key/value pair to the bucket
 	h.data[digest] = append(h.data[digest], item{
 		key:   key,
 		value: value,
 	})
+}
 
-	return nil
+func (h *HashMap) Get(key string) (interface{}, error) {
+	h.mutex.RLock()
+	defer h.mutex.RUnlock()
+
+	digest := pearson.Sum16(key)
+
+	x := h.data[digest]
+	for i := range x {
+		if h.data[digest][i].key == key {
+			return h.data[digest][i], nil
+		}
+	}
+
+	return nil, ErrNotFound
 }
