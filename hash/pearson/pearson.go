@@ -29,6 +29,7 @@ var lookupTable = []uint8{165, 199, 36, 25, 48, 88, 201, 164, 173, 226, 211, 225
 	104, 200, 249, 159, 240, 234, 148, 181, 82, 105, 142, 190, 3, 89, 42, 74,
 	72, 5, 13, 16, 37, 185, 34, 93, 155, 140, 179, 83, 80, 50, 63, 194}
 
+// New returns a new 16-bit Pearson hash.Hash. Its Sum method will lay the value out in big-endian byte order.
 func New() hash.Hash {
 	d := digest(0)
 	d.Reset()
