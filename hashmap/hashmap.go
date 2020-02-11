@@ -29,9 +29,9 @@ func (h *HashMap) Set(key string, value interface{}) {
 	h.mutex.Lock()
 	defer h.mutex.Unlock()
 
-	digest := pearson.Sum16(key)
+	digest := getDigest(&key)
 
-	// if key is already in the bucket, update and exit
+	// If key is already in the bucket, update and return
 	for i := range h.data[digest] {
 		if h.data[digest][i].key == key {
 			h.data[digest][i].value = value
@@ -51,14 +51,24 @@ func (h *HashMap) Get(key string) (interface{}, error) {
 	h.mutex.RLock()
 	defer h.mutex.RUnlock()
 
-	digest := pearson.Sum16(key)
+	digest := getDigest(&key)
 
-	x := h.data[digest]
-	for i := range x {
+	for i := range h.data[digest] {
 		if h.data[digest][i].key == key {
 			return h.data[digest][i], nil
 		}
 	}
 
 	return nil, ErrNotFound
+}
+
+func (h *HashMap) Delete(key string) error {
+	h.mutex.Lock()
+	defer h.mutex.Unlock()
+
+	return ErrNotFound
+}
+
+func getDigest(key *string) uint16 {
+	return pearson.Sum16(*key)
 }
