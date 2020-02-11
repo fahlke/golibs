@@ -42,12 +42,12 @@ The lists below are in no particular order and the various implementations are n
 
 ### Hashing algorithms
 
-| Name (Wikipedia link)                        | Package                  | Implemented |
-|:---------------------------------------------|:-------------------------|:-----------:|
-| [SHA-256][sha-256]                           | [hash](hash)             |           - |
-| [MD5][md5]                                   | [hash](hash)             |           - |
-| [Pearson hashing][pearson-hashing]           | [hash](hash)             |           - |
-| [CRC-32][crc-32]                             | [hash](hash)             |           - |
+| Name (Wikipedia link)                        | Package                      | Implemented |
+|:---------------------------------------------|:-----------------------------|:-----------:|
+| [SHA-256][sha-256]                           | [hash](hash)                 |           - |
+| [MD5][md5]                                   | [hash](hash)                 |           - |
+| [Pearson hashing][pearson-hashing]           | [hash/pearson](hash/pearson) |           ✓ |
+| [CRC-32][crc-32]                             | [hash](hash)                 |           - |
 
 ### String metrics
 
