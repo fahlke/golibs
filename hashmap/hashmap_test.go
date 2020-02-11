@@ -62,12 +62,26 @@ func TestSet(t *testing.T) {
 func TestGet(t *testing.T) {
 	t.Parallel()
 
-	m := HashMap{}
+	t.Run("existing item", func(t *testing.T) {
+		t.Parallel()
 
-	m.Set("foo", "bar")
+		m := HashMap{}
 
-	kv, err := m.Get("foo")
+		m.Set("foo", "bar")
 
-	assert.NoError(t, err)
-	assert.Equal(t, item{key: "foo", value: "bar"}, kv)
+		kv, err := m.Get("foo")
+		assert.NoError(t, err)
+		assert.Equal(t, item{key: "foo", value: "bar"}, kv)
+	})
+
+	t.Run("missing item", func(t *testing.T) {
+		t.Parallel()
+
+		m := HashMap{}
+
+		m.Set("foo", "bar")
+
+		_, err := m.Get("non-existing")
+		assert.EqualError(t, err, "item not found")
+	})
 }
