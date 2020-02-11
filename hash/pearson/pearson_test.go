@@ -51,6 +51,20 @@ func TestReset(t *testing.T) {
 
 func TestSum(t *testing.T) { t.Parallel() }
 
+func TestSum16(t *testing.T) {
+	t.Parallel()
+
+	for _, tt := range golden {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			digest := Sum16(tt.in)
+			assert.Equal(t, tt.digest, digest)
+		})
+	}
+}
+
 func TestWrite(t *testing.T) {
 	t.Parallel()
 

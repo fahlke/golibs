@@ -11,6 +11,15 @@ import (
 
 // This example shows the basic usage of the package: Create a Pearson hash.Hash,
 // write a value and receive the hash as hex value.
+func ExampleSum16() {
+	digest := pearson.Sum16("Hello World!")
+
+	fmt.Printf("%x\n", digest)
+	// Output: e0a2
+}
+
+// This example shows the basic usage of the package: Create a Pearson hash.Hash,
+// write a value and receive the hash as hex value.
 func ExampleNew_hexValue() {
 	digest := pearson.New()
 
