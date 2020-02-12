@@ -19,7 +19,6 @@ LABEL maintainer  "Alexander Fahlke <alexander@fahlke.dev>"
 LABEL description "An image running a small tool to show hash collisions for an arbitrary input string against a random generated string in my Pearson-16 hash implementation"
 
 STOPSIGNAL SIGTERM
-EXPOSE 3001
 
 COPY --from=builder /build/pearsoncollider /pearsoncollider
 
