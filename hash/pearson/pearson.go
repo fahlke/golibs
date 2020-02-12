@@ -1,10 +1,17 @@
 package pearson
 
-import "hash"
+import (
+	"errors"
+	"hash"
+)
 
 const (
 	size      = 2
 	blockSize = 1
+)
+
+var (
+	ErrDigestFailed = errors.New("failed to get digest")
 )
 
 type digest uint16
@@ -72,4 +79,12 @@ func (d *digest) Write(p []byte) (n int, err error) {
 	*d = digest((uint16(h) << 8) | uint16(hh))
 
 	return len(p), nil
+}
+
+func Sum16(in string) uint16 {
+	d := digest(0)
+
+	d.Write([]byte(in)) //nolint:errcheck
+
+	return uint16(d)
 }
