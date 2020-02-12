@@ -69,9 +69,9 @@ func TestGet(t *testing.T) {
 
 		m.Set("foo", "bar")
 
-		kv, err := m.Get("foo")
+		value, err := m.Get("foo")
 		assert.NoError(t, err)
-		assert.Equal(t, item{key: "foo", value: "bar"}, kv)
+		assert.Equal(t, "bar", value)
 	})
 
 	t.Run("missing item", func(t *testing.T) {

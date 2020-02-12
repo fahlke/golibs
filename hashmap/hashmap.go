@@ -55,7 +55,7 @@ func (h *HashMap) Get(key string) (interface{}, error) {
 
 	for i := range h.data[digest] {
 		if h.data[digest][i].key == key {
-			return h.data[digest][i], nil
+			return h.data[digest][i].value, nil
 		}
 	}
 
