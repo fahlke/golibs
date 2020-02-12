@@ -85,3 +85,51 @@ func TestGet(t *testing.T) {
 		assert.EqualError(t, err, "item not found")
 	})
 }
+
+func TestHashMap_Delete(t *testing.T) {
+	t.Parallel()
+
+	t.Run("existing item", func(t *testing.T) {
+		t.Parallel()
+
+		m := HashMap{}
+		m.Set("foo", "bar")
+
+		err := m.Delete("foo")
+		assert.Equal(t, 0, len(m.data[0xad5c]))
+		assert.NoError(t, err)
+	})
+
+	t.Run("empty map", func(t *testing.T) {
+		t.Parallel()
+
+		m := HashMap{}
+
+		err := m.Delete("non existing key")
+		assert.Equal(t, 0, len(m.data[0x32]))
+		assert.EqualError(t, err, "item not found")
+	})
+
+	t.Run("missing item", func(t *testing.T) {
+		t.Parallel()
+
+		m := HashMap{}
+		m.Set("foo", "bar")
+
+		err := m.Delete("non existing key")
+		assert.Equal(t, 0, len(m.data[0x32]))
+		assert.EqualError(t, err, "item not found")
+	})
+
+	t.Run("colliding item", func(t *testing.T) {
+		t.Parallel()
+
+		m := HashMap{}
+		m.Set("foo", "bar")
+		m.Set("x8ÜutM", "collision")
+
+		err := m.Delete("x8ÜutM")
+		assert.Equal(t, 1, len(m.data[0xad5c]))
+		assert.NoError(t, err)
+	})
+}

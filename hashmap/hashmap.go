@@ -66,6 +66,15 @@ func (h *HashMap) Delete(key string) error {
 	h.mutex.Lock()
 	defer h.mutex.Unlock()
 
+	digest := getDigest(&key)
+
+	for i := range h.data[digest] {
+		if h.data[digest][i].key == key {
+			h.data[digest] = append(h.data[digest][:i], h.data[digest][i+1:]...)
+			return nil
+		}
+	}
+
 	return ErrNotFound
 }
 
