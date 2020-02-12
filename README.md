@@ -7,6 +7,8 @@
 
 A loose collection of handcrafted [Go][golang] implementations of common data structures and algorithms for my own reference and for demonstration purposes.
 
+But most importantly this repository is created and maintained to have some ***fun*** developing stuff and to ***stay hungry, stay curious***!
+
 [![gopher-logo]][gopherizeme]
 
 ## Implementations
@@ -21,7 +23,7 @@ The lists below are in no particular order and the various implementations are n
 | [Stack (LIFO)][stack-lifo]                   | [stack](stack)           |           - |
 | [Max heap (Binary heap)][max-heap]           | [heap](heap)             |           - |
 | [Min heap (Pairing heap)][min-heap]          | [heap](heap)             |           - |
-| [Hash table (hashmap)][hash-table]           | [hashmap](hashmap)       |           - |
+| [Hash table (hashmap)][hash-table]           | [hashmap](hashmap)       |           ✓ |
 | [Binary tree][binary-tree]                   | [binarytree](binarytree) |           - |
 | [Linked list][linked-list]                   | [linkedlist](linkedlist) |           - |
 | [Undirected graph][undirected-graph]         | [graph](graph)           |           - |
