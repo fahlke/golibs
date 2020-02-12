@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestSet(t *testing.T) {
+func TestHashMap_Set(t *testing.T) {
 	t.Parallel()
 
 	t.Run("check hashmap size", func(t *testing.T) {
@@ -59,7 +59,7 @@ func TestSet(t *testing.T) {
 	})
 }
 
-func TestGet(t *testing.T) {
+func TestHashMap_Get(t *testing.T) {
 	t.Parallel()
 
 	t.Run("existing item", func(t *testing.T) {
