@@ -51,20 +51,6 @@ func TestStack_Size(t *testing.T) {
 		s.Push("bar")
 		assert.Exactly(t, uint(0x2), s.Size()) //nolint:gomnd
 	})
-
-	t.Run("two items after pop", func(t *testing.T) {
-		t.Parallel()
-
-		// test for number of items after running Pop() (add 3 items, remove 1 item, result 2 items)
-		t.Error("not implemented yet")
-	})
-
-	t.Run("two items after top", func(t *testing.T) {
-		t.Parallel()
-
-		// test for number of items after running Top() (add 2 items, run top, result 2 items)
-		t.Error("not implemented yet")
-	})
 }
 
 func TestStack_Push(t *testing.T) {
@@ -133,5 +119,56 @@ func TestStack_Top(t *testing.T) {
 func TestStack_Pop(t *testing.T) {
 	t.Parallel()
 
-	t.Error("not implemented yet")
+	t.Run("empty", func(t *testing.T) {
+		t.Parallel()
+
+		s := Stack{}
+
+		_, err := s.Pop()
+		assert.Error(t, ErrEmptyStack, err)
+	})
+
+	t.Run("one item", func(t *testing.T) {
+		t.Parallel()
+
+		s := Stack{}
+		s.Push("foo")
+
+		_, err := s.Pop()
+		assert.NoError(t, err)
+		assert.EqualValues(t, uint(0x0), s.Size()) //nolint:gomnd
+	})
+
+	t.Run("two items with one remaining", func(t *testing.T) {
+		t.Parallel()
+
+		s := Stack{}
+		s.Push("foo")
+		s.Push("bar")
+
+		_, err := s.Pop()
+		assert.NoError(t, err)
+		assert.EqualValues(t, uint(0x1), s.Size()) //nolint:gomnd
+	})
+
+	t.Run("two items with empty stack", func(t *testing.T) {
+		t.Parallel()
+
+		s := Stack{}
+		s.Push("foo")
+		s.Push("bar")
+
+		_, err := s.Pop()
+		assert.NoError(t, err)
+		assert.EqualValues(t, uint(0x1), s.Size()) //nolint:gomnd
+
+		_, err = s.Pop()
+		assert.NoError(t, err)
+		assert.EqualValues(t, uint(0x0), s.Size()) //nolint:gomnd
+
+		_, err = s.Pop()
+		assert.Error(t, ErrEmptyStack, err)
+		assert.EqualValues(t, uint(0x0), s.Size()) //nolint:gomnd
+		assert.True(t, s.Empty())
+	})
 }

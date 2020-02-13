@@ -54,5 +54,12 @@ func (s *Stack) Pop() (interface{}, error) {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
-	return nil, nil
+	if len(s.items) == 0 {
+		return nil, ErrEmptyStack
+	}
+
+	top := s.items[:len(s.items)-1]
+	s.items = s.items[:len(s.items)-1]
+
+	return top, nil
 }
