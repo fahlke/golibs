@@ -89,7 +89,6 @@ func TestStack_Top(t *testing.T) {
 		s := Stack{}
 		_, err := s.Top()
 		assert.Error(t, err, "empty stack")
-		assert.Exactly(t, uint(0x0), s.Size()) //nolint:gomnd
 	})
 
 	t.Run("one item", func(t *testing.T) {
@@ -100,7 +99,6 @@ func TestStack_Top(t *testing.T) {
 		top, err := s.Top()
 		assert.NoError(t, err)
 		assert.Exactly(t, "foo", top)
-		assert.Exactly(t, uint(0x1), s.Size()) //nolint:gomnd
 	})
 
 	t.Run("two items", func(t *testing.T) {
@@ -112,7 +110,6 @@ func TestStack_Top(t *testing.T) {
 		top, err := s.Top()
 		assert.NoError(t, err)
 		assert.Exactly(t, "bar", top)
-		assert.Exactly(t, uint(0x2), s.Size()) //nolint:gomnd
 	})
 }
 
