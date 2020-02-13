@@ -27,13 +27,11 @@ func (s *Stack) Size() uint {
 	return uint(len(s.items))
 }
 
-func (s *Stack) Push(item interface{}) error {
+func (s *Stack) Push(item interface{}) {
 	s.Lock()
 	defer s.Unlock()
 
 	s.items = append(s.items, item)
-
-	return nil
 }
 
 func (s *Stack) Top() (interface{}, error) {
