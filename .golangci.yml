@@ -2,14 +2,24 @@
 
 # options for analysis running
 run:
-  timeout: 1m
-  skip-dirs:
-    - vendor
+  skip-files:
+    - "example_test.go$"
+  modules-download-mode: readonly
 
 # output configuration options
 output:
   format: line-number
   print-issued-lines: false
+
+# settings of specific linters
+linters-settings:
+  gocognit:
+    min-complexity: 10
+  gocyclo:
+    min-complexity: 10
+  wsl:
+    allow-cuddle-declarations: true
+
 
 # list of enabled or disabled linters
 linters:
