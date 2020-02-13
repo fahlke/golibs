@@ -1,6 +1,7 @@
 package stack
 
 import (
+	"errors"
 	"sync"
 )
 
@@ -9,11 +10,20 @@ type Stack struct {
 	items []interface{}
 }
 
-func (s *Stack) Empty() bool { return true }
+// ErrEmptyStack returns on an invalid operation on an empty stack
+var ErrEmptyStack = errors.New("empty stack")
+
+func (s *Stack) Empty() bool {
+	return len(s.items) == 0
+}
 
 func (s *Stack) Size() int { return 0 }
 
-func (s *Stack) Push(item interface{}) error { return nil }
+func (s *Stack) Push(item interface{}) error {
+	s.items = append(s.items, item)
+
+	return nil
+}
 
 func (s *Stack) Top() (interface{}, error) { return nil, nil }
 
