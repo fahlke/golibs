@@ -3,6 +3,8 @@ package util
 import (
 	"math"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestMin(t *testing.T) {
@@ -29,9 +31,9 @@ func TestMin(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			if got := Min(tt.a, tt.n...); got != tt.want {
-				t.Errorf("Min() = %v, want %v", got, tt.want)
-			}
+
+			got := Min(tt.a, tt.n...)
+			assert.EqualValues(t, tt.want, got)
 		})
 	}
 }
