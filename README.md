@@ -20,7 +20,7 @@ The lists below are in no particular order and the various implementations are n
 | Kind (Wikipedia link)                        | Package                  | Implemented |
 |:---------------------------------------------|:-------------------------|:-----------:|
 | [Queue (FIFO)][queue-fifo]                   | [queue](queue)           |           - |
-| [Stack (LIFO)][stack-lifo]                   | [stack](stack)           |           - |
+| [Stack (LIFO)][stack-lifo]                   | [stack](stack)           |           ✓ |
 | [Max heap (Binary heap)][max-heap]           | [heap](heap)             |           - |
 | [Min heap (Pairing heap)][min-heap]          | [heap](heap)             |           - |
 | [Hash table (hashmap)][hash-table]           | [hashmap](hashmap)       |           ✓ |
