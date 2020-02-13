@@ -56,15 +56,21 @@ func TestStack_Size(t *testing.T) {
 func TestStack_Push(t *testing.T) {
 	t.Parallel()
 
+	type testStruct struct {
+		foo string
+		bar bool
+	}
+
 	tests := []struct {
 		name     string
 		item     interface{}
 		expected interface{}
 	}{
-		{"boolean", true, true},
-		{"string", "foo", "foo"},
-		{"signed integer", 0x1, 0x1},               //nolint:gonmd
-		{"unsigned integer", uint(0x1), uint(0x1)}, //nolint:gonmd
+		{"a boolean", true, true},
+		{"a string", "foo", "foo"},
+		{"a signed integer", 0x1, 0x1},               //nolint:gonmd
+		{"a unsigned integer", uint(0x1), uint(0x1)}, //nolint:gonmd
+		{"a custom struct", testStruct{"baz", false}, testStruct{}},
 	}
 
 	for _, tt := range tests {
@@ -74,7 +80,9 @@ func TestStack_Push(t *testing.T) {
 
 			s := Stack{}
 			s.Push(tt.item)
-			data, _ := s.Top()
+			data, err := s.Top()
+			assert.NoError(t, err)
+			assert.False(t, s.Empty())
 			assert.IsType(t, tt.expected, data)
 		})
 	}
