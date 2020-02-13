@@ -51,6 +51,20 @@ func TestStack_Size(t *testing.T) {
 		assert.NoError(t, s.Push("bar"))
 		assert.Exactly(t, uint(0x2), s.Size()) //nolint:gomnd
 	})
+
+	t.Run("two items after pop", func(t *testing.T) {
+		t.Parallel()
+
+		// test for number of items after running Pop() (add 3 items, remove 1 item, result 2 items)
+		t.Error("not implemented yet")
+	})
+
+	t.Run("two items after top", func(t *testing.T) {
+		t.Parallel()
+
+		// test for number of items after running Top() (add 2 items, run top, result 2 items)
+		t.Error("not implemented yet")
+	})
 }
 
 func TestStack_Push(t *testing.T) { t.Parallel() }
