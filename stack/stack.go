@@ -6,7 +6,7 @@ import (
 )
 
 type Stack struct {
-	sync.RWMutex
+	mutex sync.RWMutex
 	items []interface{}
 }
 
@@ -15,32 +15,32 @@ var ErrEmptyStack = errors.New("empty stack")
 
 // Empty returns true if the underlying stack is empty, false otherwise.
 func (s *Stack) Empty() bool {
-	s.RLock()
-	defer s.RUnlock()
+	s.mutex.RLock()
+	defer s.mutex.RUnlock()
 
 	return len(s.items) == 0
 }
 
 // Size returns the number of elements in the underlying stack.
 func (s *Stack) Size() uint {
-	s.RLock()
-	defer s.RUnlock()
+	s.mutex.RLock()
+	defer s.mutex.RUnlock()
 
 	return uint(len(s.items))
 }
 
 // Push is putting the given element value to the top of the stack.
 func (s *Stack) Push(item interface{}) {
-	s.Lock()
-	defer s.Unlock()
+	s.mutex.Lock()
+	defer s.mutex.Unlock()
 
 	s.items = append(s.items, item)
 }
 
 // Top returns the top element in the stack without removing it. That is the most recently pushed element.
 func (s *Stack) Top() (interface{}, error) {
-	s.RLock()
-	defer s.RUnlock()
+	s.mutex.RLock()
+	defer s.mutex.RUnlock()
 
 	if s.Empty() {
 		return nil, ErrEmptyStack
@@ -51,8 +51,8 @@ func (s *Stack) Top() (interface{}, error) {
 
 // Pop removes the top element from the stack and returns it. It returns an error if the stack is empty.
 func (s *Stack) Pop() (interface{}, error) {
-	s.Lock()
-	defer s.Unlock()
+	s.mutex.Lock()
+	defer s.mutex.Unlock()
 
 	return nil, nil
 }
