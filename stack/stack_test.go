@@ -71,13 +71,14 @@ func TestStack_Push(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name string
-		data interface{}
+		name     string
+		item     interface{}
+		expected interface{}
 	}{
-		{"boolean", true},
-		{"string", "foo"},
-		{"signed integer", 0xa},           //nolint:gonmd
-		{"unsigned integer", uint16(0xa)}, //nolint:gonmd
+		{"boolean", true, true},
+		{"string", "foo", "foo"},
+		{"signed integer", 0x1, 0x1},               //nolint:gonmd
+		{"unsigned integer", uint(0x1), uint(0x1)}, //nolint:gonmd
 	}
 
 	for _, tt := range tests {
@@ -86,8 +87,9 @@ func TestStack_Push(t *testing.T) {
 			t.Parallel()
 
 			s := Stack{}
-			s.Push(tt.data)
-			assert.EqualValues(t, uint16(0x1), s.Size()) //nolint:gomnd
+			s.Push(tt.item)
+			data, _ := s.Top()
+			assert.IsType(t, tt.expected, data)
 		})
 	}
 }
@@ -128,4 +130,8 @@ func TestStack_Top(t *testing.T) {
 	})
 }
 
-func TestStack_Pop(t *testing.T) { t.Parallel() }
+func TestStack_Pop(t *testing.T) {
+	t.Parallel()
+
+	t.Error("not implemented yet")
+}
