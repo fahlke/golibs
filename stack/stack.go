@@ -27,6 +27,12 @@ func (s *Stack) Push(item interface{}) error {
 	return nil
 }
 
-func (s *Stack) Top() (interface{}, error) { return nil, nil }
+func (s *Stack) Top() (interface{}, error) {
+	if s.Empty() {
+		return nil, ErrEmptyStack
+	}
+
+	return s.items[len(s.items)-1], nil
+}
 
 func (s *Stack) Pop() (interface{}, error) { return nil, nil }

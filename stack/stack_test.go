@@ -69,6 +69,40 @@ func TestStack_Size(t *testing.T) {
 
 func TestStack_Push(t *testing.T) { t.Parallel() }
 
-func TestStack_Top(t *testing.T) { t.Parallel() }
+func TestStack_Top(t *testing.T) {
+	t.Parallel()
+
+	t.Run("empty", func(t *testing.T) {
+		t.Parallel()
+
+		s := Stack{}
+		_, err := s.Top()
+		assert.Error(t, err, "empty stack")
+		assert.Exactly(t, uint(0x0), s.Size()) //nolint:gomnd
+	})
+
+	t.Run("one item", func(t *testing.T) {
+		t.Parallel()
+
+		s := Stack{}
+		assert.NoError(t, s.Push("foo"))
+		top, err := s.Top()
+		assert.NoError(t, err)
+		assert.Exactly(t, "foo", top)
+		assert.Exactly(t, uint(0x1), s.Size()) //nolint:gomnd
+	})
+
+	t.Run("two items", func(t *testing.T) {
+		t.Parallel()
+
+		s := Stack{}
+		assert.NoError(t, s.Push("foo"))
+		assert.NoError(t, s.Push("bar"))
+		top, err := s.Top()
+		assert.NoError(t, err)
+		assert.Exactly(t, "bar", top)
+		assert.Exactly(t, uint(0x2), s.Size()) //nolint:gomnd
+	})
+}
 
 func TestStack_Pop(t *testing.T) { t.Parallel() }
