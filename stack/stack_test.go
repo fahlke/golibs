@@ -67,7 +67,30 @@ func TestStack_Size(t *testing.T) {
 	})
 }
 
-func TestStack_Push(t *testing.T) { t.Parallel() }
+func TestStack_Push(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name string
+		data interface{}
+	}{
+		{"boolean", true},
+		{"string", "foo"},
+		{"signed integer", 0xa},           //nolint:gonmd
+		{"unsigned integer", uint16(0xa)}, //nolint:gonmd
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			s := Stack{}
+			s.Push(tt.data)
+			assert.EqualValues(t, uint16(0x1), s.Size()) //nolint:gomnd
+		})
+	}
+}
 
 func TestStack_Top(t *testing.T) {
 	t.Parallel()
