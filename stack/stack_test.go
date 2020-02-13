@@ -20,7 +20,7 @@ func TestStack_Empty(t *testing.T) {
 		t.Parallel()
 
 		s := Stack{}
-		assert.NoError(t, s.Push("foo"))
+		s.Push("foo")
 		assert.Equal(t, false, s.Empty())
 	})
 }
@@ -39,7 +39,7 @@ func TestStack_Size(t *testing.T) {
 		t.Parallel()
 
 		s := Stack{}
-		assert.NoError(t, s.Push("foo"))
+		s.Push("foo")
 		assert.Exactly(t, uint(0x1), s.Size()) //nolint:gomnd
 	})
 
@@ -47,8 +47,8 @@ func TestStack_Size(t *testing.T) {
 		t.Parallel()
 
 		s := Stack{}
-		assert.NoError(t, s.Push("foo"))
-		assert.NoError(t, s.Push("bar"))
+		s.Push("foo")
+		s.Push("bar")
 		assert.Exactly(t, uint(0x2), s.Size()) //nolint:gomnd
 	})
 
@@ -85,7 +85,7 @@ func TestStack_Top(t *testing.T) {
 		t.Parallel()
 
 		s := Stack{}
-		assert.NoError(t, s.Push("foo"))
+		s.Push("foo")
 		top, err := s.Top()
 		assert.NoError(t, err)
 		assert.Exactly(t, "foo", top)
@@ -96,8 +96,8 @@ func TestStack_Top(t *testing.T) {
 		t.Parallel()
 
 		s := Stack{}
-		assert.NoError(t, s.Push("foo"))
-		assert.NoError(t, s.Push("bar"))
+		s.Push("foo")
+		s.Push("bar")
 		top, err := s.Top()
 		assert.NoError(t, err)
 		assert.Exactly(t, "bar", top)
