@@ -129,7 +129,8 @@ func TestStack_Pop(t *testing.T) {
 
 		s := Stack{}
 
-		_, err := s.Pop()
+		item, err := s.Pop()
+		assert.Nil(t, item)
 		assert.Error(t, ErrEmptyStack, err)
 	})
 
@@ -139,41 +140,21 @@ func TestStack_Pop(t *testing.T) {
 		s := Stack{}
 		s.Push("foo")
 
-		_, err := s.Pop()
-		assert.NoError(t, err)
-		assert.EqualValues(t, uint(0x0), s.Size()) //nolint:gomnd
+		item, _ := s.Pop()
+		assert.Equal(t, "foo", item)
 	})
 
-	t.Run("two items with one remaining", func(t *testing.T) {
+	t.Run("two items", func(t *testing.T) {
 		t.Parallel()
 
 		s := Stack{}
 		s.Push("foo")
 		s.Push("bar")
 
-		_, err := s.Pop()
-		assert.NoError(t, err)
-		assert.EqualValues(t, uint(0x1), s.Size()) //nolint:gomnd
-	})
+		item, _ := s.Pop()
+		assert.Equal(t, "bar", item)
 
-	t.Run("two items with empty stack", func(t *testing.T) {
-		t.Parallel()
-
-		s := Stack{}
-		s.Push("foo")
-		s.Push("bar")
-
-		_, err := s.Pop()
-		assert.NoError(t, err)
-		assert.EqualValues(t, uint(0x1), s.Size()) //nolint:gomnd
-
-		_, err = s.Pop()
-		assert.NoError(t, err)
-		assert.EqualValues(t, uint(0x0), s.Size()) //nolint:gomnd
-
-		_, err = s.Pop()
-		assert.Error(t, ErrEmptyStack, err)
-		assert.EqualValues(t, uint(0x0), s.Size()) //nolint:gomnd
-		assert.True(t, s.Empty())
+		item, _ = s.Pop()
+		assert.Equal(t, "foo", item)
 	})
 }

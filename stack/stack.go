@@ -42,7 +42,7 @@ func (s *Stack) Top() (interface{}, error) {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
-	if s.Empty() {
+	if len(s.items) == 0 {
 		return nil, ErrEmptyStack
 	}
 
@@ -58,8 +58,8 @@ func (s *Stack) Pop() (interface{}, error) {
 		return nil, ErrEmptyStack
 	}
 
-	top := s.items[:len(s.items)-1]
+	item := s.items[len(s.items)-1]
 	s.items = s.items[:len(s.items)-1]
 
-	return top, nil
+	return item, nil
 }
