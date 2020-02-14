@@ -1,10 +1,28 @@
 package queue
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 func TestQueue_Empty(t *testing.T) {
 	t.Parallel()
-	t.Error("implement me")
+
+	t.Run("empty", func(t *testing.T) {
+		t.Parallel()
+
+		q := Queue{}
+		assert.True(t, q.Empty())
+	})
+
+	t.Run("non-empty", func(t *testing.T) {
+		t.Parallel()
+
+		q := Queue{}
+		q.Push("foo")
+		assert.False(t, q.Empty())
+	})
 }
 
 func TestQueue_Size(t *testing.T) {
