@@ -18,7 +18,12 @@ func (q *Queue) Empty() bool {
 }
 
 // Size returns the number of elements in the underlying queue.
-func (q *Queue) Size() { panic("implement me") }
+func (q *Queue) Size() int {
+	q.mutex.RLock()
+	defer q.mutex.RUnlock()
+
+	return len(q.data)
+}
 
 // Push inserts an element at the end.
 func (q *Queue) Push(item interface{}) {
