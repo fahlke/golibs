@@ -1,13 +1,18 @@
 package queue
 
 import (
+	"errors"
 	"sync"
 )
 
+// Queue represents a queue implementation
 type Queue struct {
 	mutex sync.RWMutex
 	data  []interface{}
 }
+
+// ErrEmptyQueue will be returned on an invalid operation on an empty queue.
+var ErrEmptyQueue = errors.New("empty queue")
 
 // Empty checks whether the underlying queue is empty.
 func (q *Queue) Empty() bool {
@@ -30,7 +35,9 @@ func (q *Queue) Push(item interface{}) {
 	q.mutex.Lock()
 	defer q.mutex.Unlock()
 
-	q.data = append(q.data, "implement me")
+	q.data = append(q.data, item)
+	copy(q.data[1:], q.data)
+	q.data[0] = item
 }
 
 // Pop removes the first element from the queue.
@@ -40,4 +47,13 @@ func (q *Queue) Pop() { panic("implement me") }
 func (q *Queue) Front() { panic("implement me") }
 
 // Back returns the last element in the queue without removing it.
-func (q *Queue) Back() { panic("implement me") }
+func (q *Queue) Back() (interface{}, error) {
+	q.mutex.RLock()
+	defer q.mutex.RUnlock()
+
+	if len(q.data) > 0 {
+		return q.data[0], nil
+	}
+
+	return nil, ErrEmptyQueue
+}
