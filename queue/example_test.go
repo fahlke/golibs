@@ -24,7 +24,14 @@ func ExampleQueue_Size() {
 	// 2
 }
 
-func ExampleQueue_Push_Pop() {
+func ExampleQueue_Push() {
+	q := queue.Queue{}
+	q.Push("foo")
+	q.Push("bar")
+	q.Push("baz")
+}
+
+func ExampleQueue_Pop() {
 	q := queue.Queue{}
 	q.Push("foo")
 	q.Push("bar")
@@ -36,17 +43,26 @@ func ExampleQueue_Push_Pop() {
 	// foo
 }
 
-func ExampleQueue_Push_Front_Back() {
+func ExampleQueue_Front() {
 	q := queue.Queue{}
 	q.Push("foo")
 	q.Push("bar")
 	q.Push("baz")
 
 	front, _ := q.Front()
-	back, _ := q.Back()
 	fmt.Println(front)
-	fmt.Println(back)
 	// Output:
 	// foo
+}
+
+func ExampleQueue_Back() {
+	q := queue.Queue{}
+	q.Push("foo")
+	q.Push("bar")
+	q.Push("baz")
+
+	back, _ := q.Back()
+	fmt.Println(back)
+	// Output:
 	// baz
 }
