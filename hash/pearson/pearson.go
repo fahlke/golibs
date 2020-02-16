@@ -10,9 +10,8 @@ const (
 	blockSize = 1
 )
 
-var (
-	ErrDigestFailed = errors.New("failed to get digest")
-)
+// ErrDigestFailed will be returned if we could not generate a digest.
+var ErrDigestFailed = errors.New("failed to get digest")
 
 type digest uint16
 
@@ -81,10 +80,11 @@ func (d *digest) Write(p []byte) (n int, err error) {
 	return len(p), nil
 }
 
+// Sum16 returns the integer representation of a digest
 func Sum16(in string) uint16 {
 	d := digest(0)
 
-	d.Write([]byte(in)) //nolint:errcheck
+	d.Write([]byte(in)) //nolint:errcheck,gosec
 
 	return uint16(d)
 }

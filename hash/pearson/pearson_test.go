@@ -43,7 +43,7 @@ func TestReset(t *testing.T) {
 
 	var digest = New()
 
-	digest.Write([]byte("dummy")) //nolint:errcheck
+	digest.Write([]byte("dummy")) //nolint:errcheck,gosec
 	digest.Reset()
 
 	assert.Equal(t, uint16(0x0), binary.BigEndian.Uint16(digest.Sum(nil))) //nolint:gomnd
@@ -75,7 +75,7 @@ func TestWrite(t *testing.T) {
 
 			var digest = New()
 
-			digest.Write([]byte(tt.in)) //nolint:errcheck
+			digest.Write([]byte(tt.in)) //nolint:errcheck,gosec
 			assert.Equal(t, tt.digest, binary.BigEndian.Uint16(digest.Sum(nil)))
 		})
 	}
