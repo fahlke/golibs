@@ -68,8 +68,8 @@ func TestStack_Push(t *testing.T) {
 	}{
 		{"a boolean", true, true},
 		{"a string", "foo", "foo"},
-		{"a signed integer", 0x1, 0x1},               //nolint:gonmd
-		{"a unsigned integer", uint(0x1), uint(0x1)}, //nolint:gonmd
+		{"a signed integer", 0x1, 0x1},               //nolint:gomnd
+		{"a unsigned integer", uint(0x1), uint(0x1)}, //nolint:gomnd
 		{"a custom struct", testStruct{"baz", false}, testStruct{}},
 	}
 
