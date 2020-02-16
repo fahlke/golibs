@@ -36,15 +36,34 @@ func (q *Queue) Push(item interface{}) {
 	defer q.mutex.Unlock()
 
 	q.data = append(q.data, item)
-	copy(q.data[1:], q.data)
-	q.data[0] = item
 }
 
 // Pop removes the first element from the queue.
-func (q *Queue) Pop() { panic("implement me") }
+func (q *Queue) Pop() (interface{}, error) {
+	q.mutex.Lock()
+	defer q.mutex.Unlock()
+
+	if len(q.data) > 0 {
+		item := q.data[0]
+		q.data = q.data[1:]
+
+		return item, nil
+	}
+
+	return nil, ErrEmptyQueue
+}
 
 // Front returns the first element in the queue without removing it.
-func (q *Queue) Front() { panic("implement me") }
+func (q *Queue) Front() (interface{}, error) {
+	q.mutex.RLock()
+	defer q.mutex.RUnlock()
+
+	if len(q.data) > 0 {
+		return q.data[0], nil
+	}
+
+	return nil, ErrEmptyQueue
+}
 
 // Back returns the last element in the queue without removing it.
 func (q *Queue) Back() (interface{}, error) {
@@ -52,7 +71,7 @@ func (q *Queue) Back() (interface{}, error) {
 	defer q.mutex.RUnlock()
 
 	if len(q.data) > 0 {
-		return q.data[0], nil
+		return q.data[len(q.data)-1], nil
 	}
 
 	return nil, ErrEmptyQueue
