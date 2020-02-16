@@ -136,9 +136,6 @@ func TestLinkedList_GetNth(t *testing.T) {
 	l.Append("end")
 
 	t.Run("out of bounds", func(t *testing.T) {
-		l := LinkedList{}
-		l.Append("foo")
-
 		item, err := l.GetNth(0xf) //nolint:gomnd
 		assert.Error(t, errors.New("access out of bounds"), err)
 		assert.EqualValues(t, nil, item)
@@ -200,7 +197,31 @@ func TestLinkedList_InsertBeginning(t *testing.T) {
 
 func TestLinkedList_InsertAfter(t *testing.T) {
 	t.Parallel()
-	t.Error("implement me")
+
+	l := LinkedList{}
+	l.Append("foo")
+	l.Append("bar")
+	l.Append("baz")
+
+	t.Run("out of bounds", func(t *testing.T) {
+		err := l.InsertAfter("fail", 0x3) //nolint:gomnd
+		assert.Error(t, errors.New("access out of bounds"), err)
+		assert.EqualValues(t, uint(0x3), l.size) //nolint:gomnd
+	})
+
+	t.Run("after 1st item", func(t *testing.T) {
+		err := l.InsertAfter("after first", 0x0) //nolint:gomnd
+		assert.NoError(t, err)
+		assert.EqualValues(t, 0x4, l.Size())
+		assert.EqualValues(t, "after first", l.head.next.data)
+	})
+
+	t.Run("after last item", func(t *testing.T) {
+		err := l.InsertAfter("after last", 0x3) //nolint:gomnd
+		assert.NoError(t, err)
+		assert.EqualValues(t, 0x5, l.Size()) //nolint:gomnd
+		assert.EqualValues(t, "after last", l.head.next.next.next.next.data)
+	})
 }
 
 func TestLinkedList_RemoveBeginning(t *testing.T) {
