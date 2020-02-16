@@ -192,7 +192,29 @@ func TestLinkedList_Iterate(t *testing.T) {
 
 func TestLinkedList_InsertBeginning(t *testing.T) {
 	t.Parallel()
-	t.Error("implement me")
+
+	l := LinkedList{}
+
+	t.Run("from empty", func(t *testing.T) {
+		l.InsertBeginning("foo")
+		assert.EqualValues(t, uint(0x1), l.size) //nolint:gomnd
+		assert.EqualValues(t, "foo", l.head.data)
+	})
+
+	t.Run("from one item", func(t *testing.T) {
+		l.InsertBeginning("bar")
+		assert.EqualValues(t, uint(0x2), l.size) //nolint:gomnd
+		assert.EqualValues(t, "bar", l.head.data)
+		assert.EqualValues(t, "foo", l.head.next.data)
+	})
+
+	t.Run("from two items", func(t *testing.T) {
+		l.InsertBeginning("baz")
+		assert.EqualValues(t, uint(0x3), l.size) //nolint:gomnd
+		assert.EqualValues(t, "baz", l.head.data)
+		assert.EqualValues(t, "bar", l.head.next.data)
+		assert.EqualValues(t, "foo", l.head.next.next.data)
+	})
 }
 
 func TestLinkedList_InsertAfter(t *testing.T) {

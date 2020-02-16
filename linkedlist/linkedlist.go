@@ -129,7 +129,24 @@ func (l *LinkedList) Iterate() <-chan interface{} {
 }
 
 // InsertBeginning ...
-func (l *LinkedList) InsertBeginning(data interface{}) {}
+func (l *LinkedList) InsertBeginning(data interface{}) {
+	l.mutex.Lock()
+	defer l.mutex.Unlock()
+
+	newHead := &node{
+		data: data,
+	}
+
+	if l.head == nil {
+		l.head = newHead
+	} else {
+		currentHead := l.head
+		newHead.next = currentHead
+		l.head = newHead
+	}
+
+	l.size++
+}
 
 // InsertAfter ...
 func (l *LinkedList) InsertAfter(data interface{}, idx uint) error {
