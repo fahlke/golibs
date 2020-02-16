@@ -144,15 +144,12 @@ func (l *LinkedList) InsertAfter(data interface{}, idx uint) error {
 		data: data,
 	}
 
-	var currentNode *node
-	var nextNode *node
-
-	currentNode = l.head
+	currentNode := l.head
 
 	var i = uint(0x0) //nolint:gomnd
 
 	for currentNode.next != nil {
-		nextNode = currentNode.next
+		nextNode := currentNode.next
 
 		if i == idx {
 			currentNode.next = newNode
@@ -174,7 +171,18 @@ func (l *LinkedList) InsertAfter(data interface{}, idx uint) error {
 }
 
 // RemoveBeginning ...
-func (l *LinkedList) RemoveBeginning() error { return nil }
+func (l *LinkedList) RemoveBeginning() {
+	l.mutex.Lock()
+	defer l.mutex.Unlock()
+
+	if l.head.next != nil {
+		l.head = l.head.next
+	} else {
+		l.head = nil
+	}
+
+	l.size--
+}
 
 // RemoveAfter ...
 func (l *LinkedList) RemoveAfter(idx int) error { return nil }

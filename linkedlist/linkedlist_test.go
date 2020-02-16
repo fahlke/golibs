@@ -226,7 +226,29 @@ func TestLinkedList_InsertAfter(t *testing.T) {
 
 func TestLinkedList_RemoveBeginning(t *testing.T) {
 	t.Parallel()
-	t.Error("implement me")
+
+	l := LinkedList{}
+	l.Append("foo")
+	l.Append("bar")
+	l.Append("baz")
+
+	t.Run("two remaining", func(t *testing.T) {
+		l.RemoveBeginning()
+		assert.EqualValues(t, uint(0x2), l.size) //nolint:gomnd
+		assert.EqualValues(t, "bar", l.head.data)
+		assert.EqualValues(t, "baz", l.head.next.data)
+	})
+
+	t.Run("one remaining", func(t *testing.T) {
+		l.RemoveBeginning()
+		assert.EqualValues(t, uint(0x1), l.size) //nolint:gomnd
+		assert.EqualValues(t, "baz", l.head.data)
+	})
+
+	t.Run("empty", func(t *testing.T) {
+		l.RemoveBeginning()
+		assert.EqualValues(t, uint(0x0), l.size) //nolint:gomnd
+	})
 }
 
 func TestLinkedList_RemoveAfter(t *testing.T) {
