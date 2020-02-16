@@ -15,6 +15,7 @@ var (
 	ErrNotFound = errors.New("item not found")
 )
 
+// HashMap represents a hash table implementation
 type HashMap struct {
 	mutex sync.RWMutex
 	data  [buckets][]item
@@ -25,6 +26,7 @@ type item struct {
 	value interface{}
 }
 
+// Set adds a new key/value pair to the hashmap
 func (h *HashMap) Set(key string, value interface{}) {
 	h.mutex.Lock()
 	defer h.mutex.Unlock()
@@ -47,6 +49,7 @@ func (h *HashMap) Set(key string, value interface{}) {
 	})
 }
 
+// Get returns the requested key/value pair
 func (h *HashMap) Get(key string) (interface{}, error) {
 	h.mutex.RLock()
 	defer h.mutex.RUnlock()
@@ -62,6 +65,7 @@ func (h *HashMap) Get(key string) (interface{}, error) {
 	return nil, ErrNotFound
 }
 
+// Delete removes a key/value pair from the hashmap
 func (h *HashMap) Delete(key string) error {
 	h.mutex.Lock()
 	defer h.mutex.Unlock()
