@@ -17,9 +17,10 @@ linters-settings:
     min-complexity: 10
   gocyclo:
     min-complexity: 10
+  golint:
+    min-confidence: 0.85
   wsl:
     allow-cuddle-declarations: true
-
 
 # list of enabled or disabled linters
 linters:
@@ -31,3 +32,6 @@ linters:
      - performance # bodyclose, maligned, prealloc
      - style       # depguard, dogsled, dupl, funlen, gochecknoglobals, gochecknoinits, goconst, gocritic, godox, golint, gomnd, gosimple, interfacer, lll, misspell, stylecheck, unconvert, whitespace, wsl
      - unused      # deadcode, ineffassign, structcheck, unparam, unused, varcheck
+
+issues:
+  exclude-use-default: false

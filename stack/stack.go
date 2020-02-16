@@ -5,6 +5,7 @@ import (
 	"sync"
 )
 
+// Stack represents a stack implementation
 type Stack struct {
 	mutex sync.RWMutex
 	items []interface{}
