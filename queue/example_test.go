@@ -1,39 +1,52 @@
 package queue_test
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/fahlke/golibs/queue"
+)
 
 func ExampleQueue_Empty() {
-	fmt.Println("implement me")
+	q := queue.Queue{}
+
+	fmt.Println(q.Empty())
 	// Output:
-	// ???
+	// true
 }
 
 func ExampleQueue_Size() {
-	fmt.Println("implement me")
+	q := queue.Queue{}
+	q.Push("foo")
+	q.Push("bar")
+
+	fmt.Println(q.Size())
 	// Output:
-	// ???
+	// 2
 }
 
-func ExampleQueue_Push() {
-	fmt.Println("implement me")
+func ExampleQueue_Push_Pop() {
+	q := queue.Queue{}
+	q.Push("foo")
+	q.Push("bar")
+	q.Push("baz")
+
+	item, _ := q.Pop()
+	fmt.Println(item)
 	// Output:
-	// ???
+	// foo
 }
 
-func ExampleQueue_Pop() {
-	fmt.Println("implement me")
-	// Output:
-	// ???
-}
+func ExampleQueue_Push_Front_Back() {
+	q := queue.Queue{}
+	q.Push("foo")
+	q.Push("bar")
+	q.Push("baz")
 
-func ExampleQueue_Front() {
-	fmt.Println("implement me")
+	front, _ := q.Front()
+	back, _ := q.Back()
+	fmt.Println(front)
+	fmt.Println(back)
 	// Output:
-	// ???
-}
-
-func ExampleQueue_Back() {
-	fmt.Println("implement me")
-	// Output:
-	// ???
+	// foo
+	// baz
 }
