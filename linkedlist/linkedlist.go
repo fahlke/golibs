@@ -15,13 +15,44 @@ type node struct {
 }
 
 // Size ...
-func (l *LinkedList) Size() uint { return 0 }
+func (l *LinkedList) Size() uint {
+	l.mutex.RLock()
+	defer l.mutex.RUnlock()
+
+	return l.size
+}
 
 // Empty ...
-func (l *LinkedList) Empty() bool { return true }
+func (l *LinkedList) Empty() bool {
+	l.mutex.RLock()
+	defer l.mutex.RUnlock()
+
+	return l.size < 1
+}
 
 // Append ...
-func (l *LinkedList) Append(data interface{}) {}
+func (l *LinkedList) Append(data interface{}) {
+	l.mutex.Lock()
+	defer l.mutex.Unlock()
+
+	newNode := &node{
+		data: data,
+	}
+
+	if l.head == nil {
+		l.head = newNode
+		l.size++
+
+		return
+	}
+
+	var currentNode *node
+	for currentNode = l.head; currentNode.next != nil; currentNode = currentNode.next {
+	}
+
+	currentNode.next = newNode
+	l.size++
+}
 
 // Remove ...
 func (l *LinkedList) Remove(data interface{}) error { return nil }
