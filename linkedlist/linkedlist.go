@@ -1,6 +1,16 @@
 package linkedlist
 
-import "sync"
+import (
+	"errors"
+	"sync"
+)
+
+var (
+	// ErrNotFound means that the requested item does not exist
+	ErrNotFound = errors.New("item not found")
+	// ErrOutOfBounds means that an access outside of the list was attempted
+	ErrOutOfBounds = errors.New("access out of bounds")
+)
 
 // LinkedList ...
 type LinkedList struct {
@@ -27,7 +37,7 @@ func (l *LinkedList) Empty() bool {
 	l.mutex.RLock()
 	defer l.mutex.RUnlock()
 
-	return l.size < 1
+	return l.size == 0
 }
 
 // Append ...
@@ -55,16 +65,68 @@ func (l *LinkedList) Append(data interface{}) {
 }
 
 // Remove ...
-func (l *LinkedList) Remove(data interface{}) error { return nil }
+func (l *LinkedList) Remove(data interface{}) error {
+	l.mutex.Lock()
+	defer l.mutex.Unlock()
+
+	var previousNode *node
+
+	for currentNode := l.head; currentNode != nil; currentNode = currentNode.next {
+		if currentNode.data == data {
+			if previousNode == nil {
+				l.head = currentNode.next
+			} else {
+				previousNode.next = currentNode.next
+			}
+
+			l.size--
+
+			return nil
+		}
+
+		previousNode = currentNode
+	}
+
+	return ErrNotFound
+}
 
 // GetNth ...
-func (l *LinkedList) GetNth(idx int) (interface{}, error) { return nil, nil }
+func (l *LinkedList) GetNth(idx uint) (interface{}, error) {
+	l.mutex.RLock()
+	defer l.mutex.RUnlock()
+
+	if idx > l.size {
+		return nil, ErrOutOfBounds
+	}
+
+	currentNode := l.head
+	for i := uint(0x0); i < idx; i++ { //nolint:gomnd
+		if currentNode.next != nil {
+			currentNode = currentNode.next
+		}
+	}
+
+	return currentNode.data, nil
+}
 
 // Swap ...
 func (l *LinkedList) Swap(idx1, idx2 int) error { return nil }
 
 // Iterate ...
-func (l *LinkedList) Iterate() <-chan interface{} { return nil }
+func (l *LinkedList) Iterate() <-chan interface{} {
+	ch := make(chan interface{}, l.size)
+	l.mutex.RLock()
+
+	go func() {
+		for currentNode := l.head; currentNode != nil; currentNode = currentNode.next {
+			ch <- currentNode.data
+		}
+		l.mutex.RUnlock()
+		close(ch)
+	}()
+
+	return ch
+}
 
 // InsertBeginning ...
 func (l *LinkedList) InsertBeginning(data interface{}) {}
