@@ -12,7 +12,7 @@ var (
 	ErrOutOfBounds = errors.New("access out of bounds")
 )
 
-// LinkedList ...
+// LinkedList represents a single linked list implementation
 type LinkedList struct {
 	mutex sync.RWMutex
 	head  *node
@@ -24,7 +24,7 @@ type node struct {
 	data interface{}
 }
 
-// Size ...
+// Size returns the number of elements in the underlying linked list.
 func (l *LinkedList) Size() uint {
 	l.mutex.RLock()
 	defer l.mutex.RUnlock()
@@ -32,7 +32,7 @@ func (l *LinkedList) Size() uint {
 	return l.size
 }
 
-// Empty ...
+// Empty checks whether the underlying linked list is empty.
 func (l *LinkedList) Empty() bool {
 	l.mutex.RLock()
 	defer l.mutex.RUnlock()
@@ -40,7 +40,7 @@ func (l *LinkedList) Empty() bool {
 	return l.size == 0
 }
 
-// Append ...
+// Append adds an element at the end of the linked list.
 func (l *LinkedList) Append(data interface{}) {
 	l.mutex.Lock()
 	defer l.mutex.Unlock()
@@ -64,7 +64,7 @@ func (l *LinkedList) Append(data interface{}) {
 	l.size++
 }
 
-// Remove ...
+// Remove will remove the first matching element from the linked list.
 func (l *LinkedList) Remove(data interface{}) error {
 	l.mutex.Lock()
 	defer l.mutex.Unlock()
@@ -90,7 +90,7 @@ func (l *LinkedList) Remove(data interface{}) error {
 	return ErrNotFound
 }
 
-// GetNth ...
+// GetNth returns the Nth element from the linked list.
 func (l *LinkedList) GetNth(idx uint) (interface{}, error) {
 	l.mutex.RLock()
 	defer l.mutex.RUnlock()
@@ -109,7 +109,7 @@ func (l *LinkedList) GetNth(idx uint) (interface{}, error) {
 	return currentNode.data, nil
 }
 
-// Iterate ...
+// Iterate returns a channel iterating over all elements of the linked list.
 func (l *LinkedList) Iterate() <-chan interface{} {
 	ch := make(chan interface{}, l.size)
 	l.mutex.RLock()
@@ -125,7 +125,7 @@ func (l *LinkedList) Iterate() <-chan interface{} {
 	return ch
 }
 
-// InsertBeginning ...
+// InsertBeginning will add an element at the beginning of the linked list.
 func (l *LinkedList) InsertBeginning(data interface{}) {
 	l.mutex.Lock()
 	defer l.mutex.Unlock()
@@ -145,7 +145,7 @@ func (l *LinkedList) InsertBeginning(data interface{}) {
 	l.size++
 }
 
-// InsertAfter ...
+// InsertAfter will insert an element after the Nth position in the linked list.
 func (l *LinkedList) InsertAfter(data interface{}, idx uint) error {
 	l.mutex.Lock()
 	defer l.mutex.Unlock()
@@ -184,7 +184,7 @@ func (l *LinkedList) InsertAfter(data interface{}, idx uint) error {
 	return nil
 }
 
-// RemoveBeginning ...
+// RemoveBeginning will remove the first element from the linked list.
 func (l *LinkedList) RemoveBeginning() {
 	l.mutex.Lock()
 	defer l.mutex.Unlock()
