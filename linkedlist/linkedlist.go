@@ -109,9 +109,6 @@ func (l *LinkedList) GetNth(idx uint) (interface{}, error) {
 	return currentNode.data, nil
 }
 
-// Swap ...
-func (l *LinkedList) Swap(idx1, idx2 int) error { return nil }
-
 // Iterate ...
 func (l *LinkedList) Iterate() <-chan interface{} {
 	ch := make(chan interface{}, l.size)
@@ -200,6 +197,3 @@ func (l *LinkedList) RemoveBeginning() {
 
 	l.size--
 }
-
-// RemoveAfter ...
-func (l *LinkedList) RemoveAfter(idx int) error { return nil }

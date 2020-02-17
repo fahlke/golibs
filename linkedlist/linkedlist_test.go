@@ -160,11 +160,6 @@ func TestLinkedList_GetNth(t *testing.T) {
 	})
 }
 
-func TestLinkedList_Swap(t *testing.T) {
-	t.Parallel()
-	t.Error("implement me")
-}
-
 func TestLinkedList_Iterate(t *testing.T) {
 	t.Parallel()
 
@@ -271,9 +266,4 @@ func TestLinkedList_RemoveBeginning(t *testing.T) {
 		l.RemoveBeginning()
 		assert.EqualValues(t, uint(0x0), l.size) //nolint:gomnd
 	})
-}
-
-func TestLinkedList_RemoveAfter(t *testing.T) {
-	t.Parallel()
-	t.Error("implement me")
 }
