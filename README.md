@@ -25,7 +25,7 @@ The lists below are in no particular order and the various implementations are n
 | [Min heap (Pairing heap)][min-heap]          | [heap](heap)             |           - |
 | [Hash table (hashmap)][hash-table]           | [hashmap](hashmap)       |           ✓ |
 | [Binary tree][binary-tree]                   | [binarytree](binarytree) |           - |
-| [Linked list][linked-list]                   | [linkedlist](linkedlist) |           - |
+| [Linked list][linked-list]                   | [linkedlist](linkedlist) |           ✓ |
 | [Undirected graph][undirected-graph]         | [graph](graph)           |           - |
 
 ### Sorting algorithms
