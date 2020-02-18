@@ -65,7 +65,7 @@ The lists below are in no particular order and the various implementations are n
 |:---------------------------------------------|:-----------------------------------------------------|:-----------:|
 | [Levenshtein][levenshtein]                   | [stringmetric/levenshtein](stringmetric/levenshtein) |           - |
 | [Hamming][hamming]                           | [stringmetric/hamming](stringmetric/hamming)         |           - |
-| [N-Gram][n-gram]                             | [stringmetric/ngram](stringmetric/ngram)             |           - |
+| [N-Gram][n-gram]                             | [stringmetric/ngram](stringmetric/ngram)             |           - |
 
 ### Utilities
 
