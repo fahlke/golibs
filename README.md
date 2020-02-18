@@ -15,11 +15,11 @@ But most importantly this repository is created and maintained to have some ***f
 
 The lists below are in no particular order and the various implementations are not guaranteed to be "perfect". Everything is implemented for mere self educational purposes and can very likely be improved on.
 
-### Data structures
+### Abstract Data Types
 
-| Kind (Wikipedia link)                        | Package                              | Implemented |
+| Type (Wikipedia link)                        | Package                              | Implemented |
 |:---------------------------------------------|:-------------------------------------|:-----------:|
-| [List][list]                                 | [list](list)                         |           - |
+| [List (Array)][list]                         | [list](list)                         |           - |
 | [Sorted list][sorted-list]                   | [sortedlist](sortedlist)             |           - |
 | [Linked list][linked-list]                   | [linkedlist](linkedlist)             |           ✓ |
 | [Queue (FIFO)][queue-fifo]                   | [queue](queue)                       |           ✓ |
