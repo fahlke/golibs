@@ -61,11 +61,17 @@ The lists below are in no particular order and the various implementations are n
 
 ### String metrics
 
-| Name (Wikipedia link)                        | Package                                              | Implemented |
-|:---------------------------------------------|:-----------------------------------------------------|:-----------:|
-| [Levenshtein][levenshtein]                   | [stringmetric/levenshtein](stringmetric/levenshtein) |           - |
-| [Hamming][hamming]                           | [stringmetric/hamming](stringmetric/hamming)         |           - |
-| [N-Gram][n-gram]                             | [stringmetric/ngram](stringmetric/ngram)             |           - |
+| Name (Wikipedia link)                        | Package                                                | Implemented |
+|:---------------------------------------------|:-------------------------------------------------------|:-----------:|
+| [Levenshtein][levenshtein]                   | [string/metric/levenshtein](string/metric/levenshtein) |           - |
+| [Hamming][hamming]                           | [string/metric/hamming](string/metric/hamming)         |           - |
+| [N-Gram][n-gram]                             | [string/metric/ngram](string/metric/ngram)             |           - |
+
+### String searching
+
+| Name (Wikipedia link)                        | Package                                                | Implemented |
+|:---------------------------------------------|:-------------------------------------------------------|:-----------:|
+| [Aho–Corasick][aho–corasick]                 | [string/search/ahocorasick](string/search/ahocorasick) |           - |
 
 ### Utilities
 
@@ -109,3 +115,4 @@ The lists below are in no particular order and the various implementations are n
 [levenshtein]: https://en.wikipedia.org/wiki/Levenshtein_distance
 [hamming]: https://en.wikipedia.org/wiki/Hamming_distance
 [n-gram]: https://en.wikipedia.org/wiki/N-gram
+[aho–corasick]: https://en.wikipedia.org/wiki/Aho–Corasick_algorithm
