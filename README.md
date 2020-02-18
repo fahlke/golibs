@@ -17,57 +17,69 @@ The lists below are in no particular order and the various implementations are n
 
 ### Data structures
 
-| Kind (Wikipedia link)                        | Package                  | Implemented |
-|:---------------------------------------------|:-------------------------|:-----------:|
-| [Queue (FIFO)][queue-fifo]                   | [queue](queue)           |           ✓ |
-| [Stack (LIFO)][stack-lifo]                   | [stack](stack)           |           ✓ |
-| [Max heap (Binary heap)][max-heap]           | [heap](heap)             |           - |
-| [Min heap (Pairing heap)][min-heap]          | [heap](heap)             |           - |
-| [Hash table (hashmap)][hash-table]           | [hashmap](hashmap)       |           ✓ |
-| [Binary tree][binary-tree]                   | [binarytree](binarytree) |           - |
-| [Linked list][linked-list]                   | [linkedlist](linkedlist) |           ✓ |
-| [Undirected graph][undirected-graph]         | [graph](graph)           |           - |
+| Kind (Wikipedia link)                        | Package                              | Implemented |
+|:---------------------------------------------|:-------------------------------------|:-----------:|
+| [List][list]                                 | [list](list)                         |           - |
+| [Sorted list][sorted-list]                   | [sortedlist](sortedlist)             |           - |
+| [Linked list][linked-list]                   | [linkedlist](linkedlist)             |           ✓ |
+| [Queue (FIFO)][queue-fifo]                   | [queue](queue)                       |           ✓ |
+| [Stack (LIFO)][stack-lifo]                   | [stack](stack)                       |           ✓ |
+| [Max heap (Binary heap)][max-heap]           | [heap/max](heap/max)                 |           - |
+| [Min heap (Pairing heap)][min-heap]          | [heap/min](heap/min)                 |           - |
+| [Hash table (hashmap)][hash-table]           | [hashmap](hashmap)                   |           ✓ |
+| [Tree][tree]                                 | [tree](tree)                         |           - |
+| [Trie][trie]                                 | [trie](trie)                         |           - |
+| [Binary search tree][binary-tree]            | [binarytree](binarytree)             |           - |
+| [B-tree][b-tree]                             | [btree](btree)                       |           - |
+| [Undirected graph][undirected-graph]         | [graph/undirected](graph/undirected) |           - |
+| [Directed graph][directed-graph]             | [graph/directed](graph/directed)     |           - |
 
 ### Sorting algorithms
 
-| Name (Wikipedia link)                        | Package                  | Implemented |
-|:---------------------------------------------|:-------------------------|:-----------:|
-| [Quicksort][quick-sort]                      | [sort](sort)             |           - |
-| [Bubble sort][bubble-sort]                   | [sort](sort)             |           - |
-| [Merge sort][merge-sort]                     | [sort](sort)             |           - |
-| [Heapsort][heap-sort]                        | [sort](sort)             |           - |
-| [Selection sort][selection-sort]             | [sort](sort)             |           - |
-| [Insertion sort][insertion-sort]             | [sort](sort)             |           - |
-| [Cocktail shaker sort][cocktail-shaker-sort] | [sort](sort)             |           - |
-| [Shellsort][shell-sort]                      | [sort](sort)             |           - |
-| [Radix sort][radix-sort]                     | [sort](sort)             |           - |
+| Name (Wikipedia link)                        | Package                                    | Implemented |
+|:---------------------------------------------|:-------------------------------------------|:-----------:|
+| [Quicksort][quick-sort]                      | [sort/quick](sort/quick)                   |           - |
+| [Bubble sort][bubble-sort]                   | [sort/bubble](sort/bubble)                 |           - |
+| [Merge sort][merge-sort]                     | [sort/merge](sort/merge)                   |           - |
+| [Heapsort][heap-sort]                        | [sort/heap](sort/heap)                     |           - |
+| [Selection sort][selection-sort]             | [sort/selection](sort/selection)           |           - |
+| [Insertion sort][insertion-sort]             | [sort/insertion](sort/insertion)           |           - |
+| [Cocktail shaker sort][cocktail-shaker-sort] | [sort/cocktailshaker](sort/cocktailshaker) |           - |
+| [Shellsort][shell-sort]                      | [sort/shell](sort/shell)                   |           - |
+| [Radix sort][radix-sort]                     | [sort/radix](sort/radix)                   |           - |
 
 ### Hashing algorithms
 
 | Name (Wikipedia link)                        | Package                      | Implemented |
 |:---------------------------------------------|:-----------------------------|:-----------:|
-| [SHA-256][sha-256]                           | [hash](hash)                 |           - |
-| [MD5][md5]                                   | [hash](hash)                 |           - |
+| [SHA-256][sha-256]                           | [hash/sha256](hash/sha256)   |           - |
+| [MD5][md5]                                   | [hash/md5](hash/md5)         |           - |
 | [Pearson hashing][pearson-hashing]           | [hash/pearson](hash/pearson) |           ✓ |
-| [CRC-32][crc-32]                             | [hash](hash)                 |           - |
+| [CRC-32][crc-32]                             | [hash/crc32](hash/crc32)     |           - |
+| [MurmurHash][murmur-hash]                    | [hash/murmur](hash/murmur)   |           - |
+| [SpookyHash][spooky-hash]                    | [hash/spooky](hash/spooky)   |           - |
 
 ### String metrics
 
-| Name (Wikipedia link)                        | Package                  | Implemented |
-|:---------------------------------------------|:-------------------------|:-----------:|
-| [Levenshtein distance][levenshtein]          | [string](string)         |           - |
-| [Hamming distance][hamming]                  | [string](string)         |           - |
+| Name (Wikipedia link)                        | Package                                              | Implemented |
+|:---------------------------------------------|:-----------------------------------------------------|:-----------:|
+| [Levenshtein][levenshtein]                   | [stringmetric/levenshtein](stringmetric/levenshtein) |           - |
+| [Hamming][hamming]                           | [stringmetric/hamming](stringmetric/hamming)         |           - |
+| [N-Gram][n-gram]                             | [stringmetric/ngram](stringmetric/ngram)             |           - |
 
 ### Utilities
 
 | Function                                     | Package                    | Implemented |
 |:---------------------------------------------|:---------------------------|:-----------:|
-| Mix                                          | [util/mix.go](util/mix.go) |           ✓ |
-| Max                                          | [util/max.go](util/max.go) |           ✓ |
+| Mix                                          | [util](util)               |           ✓ |
+| Max                                          | [util](util)               |           ✓ |
 
 [golang]: https://golang.org/ref/spec
 [gopher-logo]: assets/gopher-mini.png "Gopher logo"
 [gopherizeme]: https://gopherize.me/gopher/692fbfd019724e297a7b0761bd3e9697ef8e6bee
+[list]: https://en.wikipedia.org/wiki/List_(abstract_data_type)
+[sorted-list]: https://en.wikipedia.org/wiki/Sorted_list
+[linked-list]: https://en.wikipedia.org/wiki/Linked_list
 [queue-fifo]: https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)
 [stack-lifo]: https://en.wikipedia.org/wiki/Stack_(abstract_data_type)
 [max-heap]: https://en.wikipedia.org/wiki/Binary_heap
@@ -82,12 +94,18 @@ The lists below are in no particular order and the various implementations are n
 [shell-sort]: https://en.wikipedia.org/wiki/Shellsort
 [radix-sort]: https://en.wikipedia.org/wiki/Radix_sort
 [hash-table]: https://en.wikipedia.org/wiki/Hash_table
-[linked-list]: https://en.wikipedia.org/wiki/Linked_list
 [sha-256]: https://en.wikipedia.org/wiki/SHA-2
 [md5]: https://en.wikipedia.org/wiki/MD5
 [crc-32]: https://en.wikipedia.org/wiki/Cyclic_redundancy_check#CRC-32_algorithm
+[murmur-hash]: https://en.wikipedia.org/wiki/MurmurHash
+[spooky-hash]: https://en.wikipedia.org/wiki/Jenkins_hash_function#SpookyHash
 [pearson-hashing]: https://en.wikipedia.org/wiki/Pearson_hashing
 [undirected-graph]: https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)#Graph
+[directed-graph]: https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)#Directed_graph
+[tree]: https://en.wikipedia.org/wiki/Tree_(data_structure)
+[trie]: https://en.wikipedia.org/wiki/Trie
 [binary-tree]: https://en.wikipedia.org/wiki/Binary_tree
+[b-tree]: https://en.wikipedia.org/wiki/B-tree
 [levenshtein]: https://en.wikipedia.org/wiki/Levenshtein_distance
 [hamming]: https://en.wikipedia.org/wiki/Hamming_distance
+[n-gram]: https://en.wikipedia.org/wiki/N-gram
