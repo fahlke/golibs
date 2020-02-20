@@ -23,8 +23,35 @@ type node struct {
 	right *node
 }
 
-func (n *node) set(key string, value interface{})        {}
-func (bt *BinaryTree) Set(key string, value interface{}) {}
+func (n *node) set(key string, value interface{}) {
+	switch {
+	case key < n.key:
+		if n.left == nil {
+			n.left = &node{key, value, nil, nil}
+		} else {
+			n.left.set(key, value)
+		}
+	case key > n.key:
+		if n.right == nil {
+			n.right = &node{key, value, nil, nil}
+		} else {
+			n.right.set(key, value)
+		}
+	default: // key == n.key
+		n.value = value
+	}
+}
+
+func (bt *BinaryTree) Set(key string, value interface{}) {
+	bt.mutex.Lock()
+	defer bt.mutex.Unlock()
+
+	if bt.root == nil {
+		bt.root = &node{key: key, value: value}
+	} else {
+		bt.root.set(key, value)
+	}
+}
 
 func (n *node) get(key string) (interface{}, error)        { return nil, nil }
 func (bt *BinaryTree) Get(key string) (interface{}, error) { return nil, nil }
