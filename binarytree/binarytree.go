@@ -2,6 +2,8 @@ package binarytree
 
 import (
 	"sync"
+
+	"github.com/fahlke/golibs/util"
 )
 
 // BinaryTree represents a binary search tree implementation.
@@ -59,8 +61,17 @@ func (bt *BinaryTree) Get(key string) (interface{}, error) { return nil, nil }
 func (n *node) delete(key string) (*node, error) { return nil, nil }
 func (bt *BinaryTree) Delete(key string) error   { return nil }
 
-func (n *node) height() int        { return 0 }
-func (bt *BinaryTree) Height() int { return 0 }
+func (n *node) height() int {
+	if n == nil {
+		return 0
+	}
+
+	return 1 + util.Max(n.left.height(), n.right.height())
+}
+
+func (bt *BinaryTree) Height() int {
+	return bt.root.height()
+}
 
 func (n *node) iterate(ch chan<- Item)      {}
 func (bt *BinaryTree) Iterate() <-chan Item { ch := make(chan Item); return ch }

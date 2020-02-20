@@ -57,3 +57,35 @@ func TestBinaryTree_Set(t *testing.T) {
 		assert.Equal(t, "délta (δέλτα) (updated)", bt.root.right.right.left.value)
 	})
 }
+
+func TestBinaryTree_Height(t *testing.T) {
+	t.Parallel()
+
+	bt := BinaryTree{}
+
+	t.Run("empty", func(t *testing.T) {
+		assert.Equal(t, 0, bt.Height())
+	})
+
+	t.Run("one", func(t *testing.T) {
+		bt.Set(insertTests[0].Key, insertTests[0].Value)
+
+		assert.Equal(t, 1, bt.Height())
+	})
+
+	t.Run("five", func(t *testing.T) {
+		for _, item := range insertTests {
+			bt.Set(item.Key, item.Value)
+		}
+
+		assert.Equal(t, 5, bt.Height())
+	})
+
+	t.Run("five after update", func(t *testing.T) {
+		for _, item := range updateTests {
+			bt.Set(item.Key, item.Value)
+		}
+
+		assert.Equal(t, 5, bt.Height())
+	})
+}
