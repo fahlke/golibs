@@ -70,6 +70,9 @@ func (n *node) height() int {
 }
 
 func (bt *BinaryTree) Height() int {
+	bt.mutex.RLock()
+	defer bt.mutex.RUnlock()
+
 	return bt.root.height()
 }
 
