@@ -25,7 +25,7 @@ var updateTests = []Item{
 func TestBinaryTree_Set(t *testing.T) {
 	t.Parallel()
 
-	bt := BinaryTree{}
+	bt := New()
 
 	t.Run("insert", func(t *testing.T) {
 		for _, item := range insertTests {
@@ -61,7 +61,7 @@ func TestBinaryTree_Set(t *testing.T) {
 func TestBinaryTree_Height(t *testing.T) {
 	t.Parallel()
 
-	bt := BinaryTree{}
+	bt := New()
 
 	t.Run("empty", func(t *testing.T) {
 		assert.Equal(t, 0, bt.Height())
@@ -88,4 +88,24 @@ func TestBinaryTree_Height(t *testing.T) {
 
 		assert.Equal(t, 5, bt.Height())
 	})
+}
+
+func TestBinaryTree_String(t *testing.T) {
+	t.Parallel()
+
+	bt := New()
+
+	for _, item := range insertTests {
+		bt.Set(item.Key, item.Value)
+	}
+
+	expected := "" +
+		"root: Alpha\n" +
+		"  right: Beta\n" +
+		"    right: Gamma\n" +
+		"      left: Delta\n" +
+		"        right: Epsilon\n" +
+		"      right: Zeta\n"
+
+	assert.Equal(t, expected, bt.String())
 }

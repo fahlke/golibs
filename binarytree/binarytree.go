@@ -1,6 +1,9 @@
 package binarytree
 
 import (
+	"bytes"
+	"fmt"
+	"io"
 	"sync"
 
 	"github.com/fahlke/golibs/util"
@@ -12,17 +15,22 @@ type BinaryTree struct {
 	root  *node
 }
 
+type node struct {
+	key   string
+	value interface{}
+	left  *node
+	right *node
+}
+
 // Item is a key value pair of a node that will be returned by the iterator
 type Item struct {
 	Key   string
 	Value interface{}
 }
 
-type node struct {
-	key   string
-	value interface{}
-	left  *node
-	right *node
+func New() *BinaryTree {
+	bt := &BinaryTree{}
+	return bt
 }
 
 func (n *node) set(key string, value interface{}) {
@@ -78,3 +86,29 @@ func (bt *BinaryTree) Height() int {
 
 func (n *node) iterate(ch chan<- Item)      {}
 func (bt *BinaryTree) Iterate() <-chan Item { ch := make(chan Item); return ch }
+
+func treeView(buf io.Writer, node *node, level int, direction string) {
+	if node == nil {
+		return
+	}
+
+	for i := 0; i < level; i++ {
+		_, _ = fmt.Fprint(buf, " ")
+	}
+
+	_, _ = fmt.Fprintf(buf, "%s: %s\n", direction, node.key)
+
+	treeView(buf, node.left, 2+level, "left")   //nolint:gomnd
+	treeView(buf, node.right, 2+level, "right") //nolint:gomnd
+}
+
+func (bt *BinaryTree) String() string {
+	bt.mutex.RLock()
+	defer bt.mutex.RUnlock()
+
+	buf := new(bytes.Buffer)
+
+	treeView(buf, bt.root, 0, "root")
+
+	return buf.String()
+}
