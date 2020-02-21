@@ -9,17 +9,16 @@ import (
 	"github.com/fahlke/golibs/util"
 )
 
-// BinaryTree represents a binary search tree implementation.
-type BinaryTree struct {
+type binaryTree struct {
 	mutex sync.RWMutex
-	root  *node
+	root  *binaryNode
 }
 
-type node struct {
+type binaryNode struct {
 	key   string
 	value interface{}
-	left  *node
-	right *node
+	left  *binaryNode
+	right *binaryNode
 }
 
 // Item is a key value pair of a node that will be returned by the iterator
@@ -28,22 +27,23 @@ type Item struct {
 	Value interface{}
 }
 
-func New() *BinaryTree {
-	bt := &BinaryTree{}
+// New returns a binary tree.
+func New() *binaryTree {
+	bt := &binaryTree{}
 	return bt
 }
 
-func (n *node) set(key string, value interface{}) {
+func (n *binaryNode) set(key string, value interface{}) {
 	switch {
 	case key < n.key:
 		if n.left == nil {
-			n.left = &node{key, value, nil, nil}
+			n.left = &binaryNode{key, value, nil, nil}
 		} else {
 			n.left.set(key, value)
 		}
 	case key > n.key:
 		if n.right == nil {
-			n.right = &node{key, value, nil, nil}
+			n.right = &binaryNode{key, value, nil, nil}
 		} else {
 			n.right.set(key, value)
 		}
@@ -52,24 +52,24 @@ func (n *node) set(key string, value interface{}) {
 	}
 }
 
-func (bt *BinaryTree) Set(key string, value interface{}) {
+func (bt *binaryTree) Set(key string, value interface{}) {
 	bt.mutex.Lock()
 	defer bt.mutex.Unlock()
 
 	if bt.root == nil {
-		bt.root = &node{key: key, value: value}
+		bt.root = &binaryNode{key: key, value: value}
 	} else {
 		bt.root.set(key, value)
 	}
 }
 
-func (n *node) get(key string) (interface{}, error)        { return nil, nil }
-func (bt *BinaryTree) Get(key string) (interface{}, error) { return nil, nil }
+func (n *binaryNode) get(key string) (interface{}, error)  { return nil, nil }
+func (bt *binaryTree) Get(key string) (interface{}, error) { return nil, nil }
 
-func (n *node) delete(key string) (*node, error) { return nil, nil }
-func (bt *BinaryTree) Delete(key string) error   { return nil }
+func (n *binaryNode) delete(key string) (*binaryNode, error) { return nil, nil }
+func (bt *binaryTree) Delete(key string) error               { return nil }
 
-func (n *node) height() int {
+func (n *binaryNode) height() int {
 	if n == nil {
 		return 0
 	}
@@ -77,17 +77,17 @@ func (n *node) height() int {
 	return 1 + util.Max(n.left.height(), n.right.height())
 }
 
-func (bt *BinaryTree) Height() int {
+func (bt *binaryTree) Height() int {
 	bt.mutex.RLock()
 	defer bt.mutex.RUnlock()
 
 	return bt.root.height()
 }
 
-func (n *node) iterate(ch chan<- Item)      {}
-func (bt *BinaryTree) Iterate() <-chan Item { ch := make(chan Item); return ch }
+func (n *binaryNode) iterate(ch chan<- Item) {}
+func (bt *binaryTree) Iterate() <-chan Item  { ch := make(chan Item); return ch }
 
-func treeView(buf io.Writer, node *node, level int, direction string) {
+func treeView(buf io.Writer, node *binaryNode, level int, direction string) {
 	if node == nil {
 		return
 	}
@@ -102,7 +102,7 @@ func treeView(buf io.Writer, node *node, level int, direction string) {
 	treeView(buf, node.right, 2+level, "right") //nolint:gomnd
 }
 
-func (bt *BinaryTree) String() string {
+func (bt *binaryTree) String() string {
 	bt.mutex.RLock()
 	defer bt.mutex.RUnlock()
 
