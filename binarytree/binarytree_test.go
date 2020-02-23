@@ -133,39 +133,37 @@ func TestBinaryTree_Iterate(t *testing.T) {
 
 	bt := New()
 
-	t.Run("insert", func(t *testing.T) {
-		for _, item := range insertTests {
-			bt.Set(item.Key, item.Value)
+	for _, item := range insertTests {
+		bt.Set(item.Key, item.Value)
+	}
+
+	var n int
+
+	for item := range bt.Iterate() {
+		//nolint:gomnd
+		switch n {
+		case 0:
+			assert.Equal(t, "Alpha", item.Key)
+			assert.Equal(t, "álfa (άλφα)", item.Value)
+		case 1:
+			assert.Equal(t, "Beta", item.Key)
+			assert.Equal(t, "víta (βήτα)", item.Value)
+		case 2:
+			assert.Equal(t, "Delta", item.Key)
+			assert.Equal(t, "délta (δέλτα)", item.Value)
+		case 3:
+			assert.Equal(t, "Epsilon", item.Key)
+			assert.Equal(t, "épsilon (έψιλον)", item.Value)
+		case 5:
+			assert.Equal(t, "Zeta", item.Key)
+			assert.Equal(t, "zíta (ζήτα)", item.Value)
+		case 6:
+			assert.Equal(t, "Gamma", item.Key)
+			assert.Equal(t, "gám(m)a (γάμ(μ)α)", item.Value)
 		}
 
-		var n int
-
-		for item := range bt.Iterate() {
-			//nolint:gomnd
-			switch n {
-			case 0:
-				assert.Equal(t, "Alpha", item.Key)
-				assert.Equal(t, "álfa (άλφα)", item.Value)
-			case 1:
-				assert.Equal(t, "Beta", item.Key)
-				assert.Equal(t, "víta (βήτα)", item.Value)
-			case 2:
-				assert.Equal(t, "Delta", item.Key)
-				assert.Equal(t, "délta (δέλτα)", item.Value)
-			case 3:
-				assert.Equal(t, "Epsilon", item.Key)
-				assert.Equal(t, "épsilon (έψιλον)", item.Value)
-			case 5:
-				assert.Equal(t, "Zeta", item.Key)
-				assert.Equal(t, "zíta (ζήτα)", item.Value)
-			case 6:
-				assert.Equal(t, "Gamma", item.Key)
-				assert.Equal(t, "gám(m)a (γάμ(μ)α)", item.Value)
-			}
-
-			n++
-		}
-	})
+		n++
+	}
 }
 
 func TestBinaryTree_String(t *testing.T) {
