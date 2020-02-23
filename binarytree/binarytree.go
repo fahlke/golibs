@@ -99,11 +99,63 @@ func (bt *binaryTree) Get(key string) (interface{}, error) {
 	return bt.root.get(key)
 }
 
+func (n *binaryNode) isLeaf() bool {
+	return !n.hasLeft() && !n.hasRight()
+}
+
+func (n *binaryNode) hasLeft() bool {
+	return n.left != nil
+}
+
+func (n *binaryNode) hasRight() bool {
+	return n.right != nil
+}
+
+func (n *binaryNode) min() *binaryNode {
+	for ; n.left != nil; n = n.left {
+	}
+	return n
+}
+
 //nolint:unused
-func (n *binaryNode) delete(key string) (*binaryNode, error) { return nil, nil }
+func (n *binaryNode) delete(key string) (*binaryNode, error) {
+	var err error
+
+	switch {
+	case n == nil:
+		return nil, ErrNotFound
+	case key < n.key:
+		n.left, err = n.left.delete(key)
+		return n, err
+	case key > n.key:
+		n.right, err = n.right.delete(key)
+		return n, err
+	case n.isLeaf(): // node is a leaf node
+		return nil, nil
+	case n.hasLeft() && !n.hasRight(): // node has only left child
+		return n.left, nil
+	case n.hasRight() && !n.hasLeft(): // node has only right child
+		return n.right, nil
+	default: // node has two children
+		min := n.right.min()
+		n.key = min.key
+		n.value = min.value
+		n.right, err = n.right.delete(min.key)
+
+		return n, err
+	}
+}
 
 // Delete ...
-func (bt *binaryTree) Delete(key string) error { return nil }
+func (bt *binaryTree) Delete(key string) error {
+	var err error
+
+	bt.mutex.RLock()
+	bt.root, err = bt.root.delete(key)
+	bt.mutex.RUnlock()
+
+	return err
+}
 
 func (n *binaryNode) height() int {
 	if n == nil {

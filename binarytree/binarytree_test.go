@@ -96,6 +96,69 @@ func TestBinaryTree_Get(t *testing.T) {
 	})
 }
 
+func TestBinaryTree_Delete(t *testing.T) {
+	t.Parallel()
+
+	t.Run("leaf node", func(t *testing.T) {
+		bt := New()
+
+		for _, item := range insertTests {
+			bt.Set(item.Key, item.Value)
+		}
+
+		// left
+		err := bt.Delete("Delta")
+		assert.NoError(t, err)
+		err = bt.Delete("Delta")
+		assert.EqualError(t, err, "not found")
+
+		// right
+		err = bt.Delete("Zeta")
+		assert.NoError(t, err)
+		err = bt.Delete("Zeta")
+		assert.EqualError(t, err, "not found")
+	})
+
+	t.Run("left", func(t *testing.T) {
+		bt := New()
+
+		for _, item := range insertTests {
+			bt.Set(item.Key, item.Value)
+		}
+
+		err := bt.Delete("Zeta")
+		assert.NoError(t, err)
+		err = bt.Delete("Zeta")
+		assert.EqualError(t, err, "not found")
+	})
+
+	t.Run("right", func(t *testing.T) {
+		bt := New()
+
+		for _, item := range insertTests {
+			bt.Set(item.Key, item.Value)
+		}
+
+		err := bt.Delete("Beta")
+		assert.NoError(t, err)
+		err = bt.Delete("Beta")
+		assert.EqualError(t, err, "not found")
+	})
+
+	t.Run("two children", func(t *testing.T) {
+		bt := New()
+
+		for _, item := range insertTests {
+			bt.Set(item.Key, item.Value)
+		}
+
+		err := bt.Delete("Gamma")
+		assert.NoError(t, err)
+		err = bt.Delete("Gamma")
+		assert.EqualError(t, err, "not found")
+	})
+}
+
 func TestBinaryTree_Height(t *testing.T) {
 	t.Parallel()
 
