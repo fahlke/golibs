@@ -58,6 +58,44 @@ func TestBinaryTree_Set(t *testing.T) {
 	})
 }
 
+func TestBinaryTree_Get(t *testing.T) {
+	t.Parallel()
+
+	bt := New()
+
+	t.Run("empty", func(t *testing.T) {
+		_, err := bt.Get("empty")
+		assert.EqualError(t, err, "the binary tree is empty")
+	})
+
+	for _, item := range insertTests {
+		bt.Set(item.Key, item.Value)
+	}
+
+	t.Run("root", func(t *testing.T) {
+		value, err := bt.Get("Alpha")
+		assert.NoError(t, err)
+		assert.Equal(t, "álfa (άλφα)", value)
+	})
+
+	t.Run("left", func(t *testing.T) {
+		value, err := bt.Get("Delta")
+		assert.NoError(t, err)
+		assert.Equal(t, "délta (δέλτα)", value)
+	})
+
+	t.Run("right", func(t *testing.T) {
+		value, err := bt.Get("Zeta")
+		assert.NoError(t, err)
+		assert.Equal(t, "zíta (ζήτα)", value)
+	})
+
+	t.Run("not found", func(t *testing.T) {
+		_, err := bt.Get("non existing key")
+		assert.EqualError(t, err, "not found")
+	})
+}
+
 func TestBinaryTree_Height(t *testing.T) {
 	t.Parallel()
 

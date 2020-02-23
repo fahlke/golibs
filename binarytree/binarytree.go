@@ -2,11 +2,19 @@ package binarytree
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"io"
 	"sync"
 
 	"github.com/fahlke/golibs/util"
+)
+
+var (
+	// ErrEmptyBinaryTree is returned when the binary search tree is empty
+	ErrEmptyBinaryTree = errors.New("the binary tree is empty")
+	// ErrNotFound is returned when a key is not in the binary search tree
+	ErrNotFound = errors.New("not found")
 )
 
 // binaryTree represents a binary search tree implementation.
@@ -28,7 +36,7 @@ type Item struct {
 	Value interface{}
 }
 
-// New returns a binary tree.
+// New returns a binary tree
 func New() *binaryTree {
 	bt := &binaryTree{}
 	return bt
@@ -53,7 +61,7 @@ func (n *binaryNode) set(key string, value interface{}) {
 	}
 }
 
-// Set ...
+// Set inserts or updates data of a given key value pair
 func (bt *binaryTree) Set(key string, value interface{}) {
 	bt.mutex.Lock()
 	defer bt.mutex.Unlock()
@@ -65,11 +73,31 @@ func (bt *binaryTree) Set(key string, value interface{}) {
 	}
 }
 
-//nolint:unused
-func (n *binaryNode) get(key string) (interface{}, error) { return nil, nil }
+func (n *binaryNode) get(key string) (interface{}, error) {
+	if n == nil {
+		return nil, ErrNotFound
+	}
 
-// Get ...
-func (bt *binaryTree) Get(key string) (interface{}, error) { return nil, nil }
+	if key < n.key {
+		return n.left.get(key)
+	} else if key > n.key {
+		return n.right.get(key)
+	}
+
+	return n.value, nil
+}
+
+// Get returns the value of a given key
+func (bt *binaryTree) Get(key string) (interface{}, error) {
+	bt.mutex.RLock()
+	defer bt.mutex.RUnlock()
+
+	if bt.root == nil {
+		return nil, ErrEmptyBinaryTree
+	}
+
+	return bt.root.get(key)
+}
 
 //nolint:unused
 func (n *binaryNode) delete(key string) (*binaryNode, error) { return nil, nil }
@@ -77,7 +105,6 @@ func (n *binaryNode) delete(key string) (*binaryNode, error) { return nil, nil }
 // Delete ...
 func (bt *binaryTree) Delete(key string) error { return nil }
 
-//nolint:unused
 func (n *binaryNode) height() int {
 	if n == nil {
 		return 0
@@ -104,7 +131,7 @@ func (n *binaryNode) iterate(ch chan<- Item) {
 	n.right.iterate(ch)
 }
 
-// Iterate ...
+// Iterate returns a channel iterating over all elements of the binary search tree.
 func (bt *binaryTree) Iterate() <-chan Item {
 	bt.mutex.RLock()
 	ch := make(chan Item)
