@@ -9,6 +9,7 @@ import (
 	"github.com/fahlke/golibs/util"
 )
 
+// binaryTree represents a binary search tree implementation.
 type binaryTree struct {
 	mutex sync.RWMutex
 	root  *binaryNode
@@ -93,11 +94,29 @@ func (bt *binaryTree) Height() int {
 	return bt.root.height()
 }
 
-//nolint:unused
-func (n *binaryNode) iterate(ch chan<- Item) {}
+func (n *binaryNode) iterate(ch chan<- Item) {
+	if n == nil {
+		return
+	}
+
+	n.left.iterate(ch)
+	ch <- Item{n.key, n.value}
+	n.right.iterate(ch)
+}
 
 // Iterate ...
-func (bt *binaryTree) Iterate() <-chan Item { ch := make(chan Item); return ch }
+func (bt *binaryTree) Iterate() <-chan Item {
+	bt.mutex.RLock()
+	ch := make(chan Item)
+
+	go func() {
+		bt.root.iterate(ch)
+		bt.mutex.RUnlock()
+		close(ch)
+	}()
+
+	return ch
+}
 
 func treeView(buf io.Writer, node *binaryNode, level int, direction string) {
 	if node == nil {
